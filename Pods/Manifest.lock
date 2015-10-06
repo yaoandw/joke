@@ -1,0 +1,91 @@
+PODS:
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - AVOSCloud (3.1.4)
+  - AVOSCloudCrashReporting (3.1.4):
+    - AVOSCloud
+  - AVOSCloudIM (3.1.4):
+    - AVOSCloud
+  - DACircularProgress (2.3.1)
+  - EGYWebViewController (1.2)
+  - LeanCloudSocial (0.0.5):
+    - AFNetworking (~> 2.0)
+    - AVOSCloud (~> 3.1)
+  - MBProgressHUD (0.9.1)
+  - MCFireworksButton (0.1)
+  - MMDrawerController (0.5.7):
+    - MMDrawerController/Core (= 0.5.7)
+    - MMDrawerController/MMDrawerBarButtonItem (= 0.5.7)
+    - MMDrawerController/MMDrawerVisualStates (= 0.5.7)
+    - MMDrawerController/Subclass (= 0.5.7)
+  - MMDrawerController/Core (0.5.7)
+  - MMDrawerController/MMDrawerBarButtonItem (0.5.7):
+    - MMDrawerController/Core
+  - MMDrawerController/MMDrawerVisualStates (0.5.7):
+    - MMDrawerController/Core
+  - MMDrawerController/Subclass (0.5.7):
+    - MMDrawerController/Core
+  - MWPhotoBrowser (2.1.1):
+    - DACircularProgress (~> 2.3)
+    - MBProgressHUD (~> 0.9)
+    - SDWebImage (!= 3.7.2, ~> 3.7)
+  - React (0.11.0):
+    - React/Core (= 0.11.0)
+  - React/Core (0.11.0)
+  - React/RCTText (0.11.0):
+    - React/Core
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
+  - SVProgressHUD (1.1.3)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.0)
+  - AVOSCloud
+  - AVOSCloudCrashReporting
+  - AVOSCloudIM
+  - EGYWebViewController
+  - LeanCloudSocial
+  - MCFireworksButton
+  - MMDrawerController (~> 0.5.7)
+  - MWPhotoBrowser
+  - React
+  - React/RCTText
+  - SVProgressHUD
+
+SPEC CHECKSUMS:
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  AVOSCloud: 2be1640178facaac8343d67ed4d5348f4dffecd7
+  AVOSCloudCrashReporting: 75d61571dd6087a096c7be8f3a2a9283fe858bbd
+  AVOSCloudIM: e2934a3128b018eeb5c9d923822ab287315b0b7f
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  EGYWebViewController: 2f4e3ab19ec54ba6243e3e50b2d95091b114f4b5
+  LeanCloudSocial: a142862a9d8968785186ba640e577adb323a5854
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MCFireworksButton: ba531989811e2483e1b32e243fa2f545fd4fb779
+  MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
+  MWPhotoBrowser: ba0d0c09ffda3a7ea10093518738c502c1c7141c
+  React: 7701ff0adcaadbf8fa5514778c2ee41b2622cd57
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+
+COCOAPODS: 0.38.2
