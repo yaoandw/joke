@@ -1,0 +1,1 @@
+../../../../../../../react/react-native/React/Views/RCTViewManager.h

@@ -1,0 +1,1 @@
+../../../../../../../react/react-native/React/Views/RCTNavItem.h

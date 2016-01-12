@@ -1,0 +1,1 @@
+../../../../../../../react/react-native/Libraries/Image/RCTVirtualImageManager.h
