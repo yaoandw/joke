@@ -8,9 +8,10 @@
 
 #import "ReactViewController.h"
 #import "ReactView.h"
+#import "Game2048ViewController.h"
 
 @interface ReactViewController ()
-
+@property(nonatomic,strong)NSArray *datasource;
 @end
 
 @implementation ReactViewController
@@ -18,8 +19,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    ReactView *view = [[ReactView alloc] initWithFrame:self.view.bounds];
-    self.view = view;
+//    ReactView *view = [[ReactView alloc] initWithFrame:self.view.bounds];
+//    self.view = view;
+    self.title = @"游戏";
+}
+
+-(void)doInitDatasource{
+    self.datasource = @[@"2048"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,14 +33,29 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.datasource count];
 }
-*/
 
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"react cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"react cell"];
+    }
+    [cell.textLabel setText:[self.datasource objectAtIndex:indexPath.row]];
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 0:{
+            Game2048ViewController *target = [[Game2048ViewController alloc] init];
+            [self.navigationController pushViewController:target animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+}
 @end

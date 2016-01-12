@@ -5,6 +5,9 @@
 
 #import <Foundation/Foundation.h>
 #import "AVConstants.h"
+#import "AVACL.h"
+
+@class AVFileQuery;
 
 /*!
  A file of binary data stored on the LeanCloud servers. This can be a image, video, or anything else
@@ -47,9 +50,16 @@
     contentsAtPath:(NSString *)path;
 
 /*!
+ Creates a file with an AVObject. 
+ @param object an AVObject.
+ @return an AVFile.
+ */
++ (instancetype)fileWithAVObject:(AVObject *)object;
+
+/*!
 The name of the file.
  */
-@property (readonly) NSString *name;
+@property (nonatomic, readonly, copy) NSString *name;
 
 /*!
  The id of the file.
@@ -65,7 +75,7 @@ The name of the file.
 /*!
  The Qiniu bucket of the file.
  */
-@property (readonly) NSString *bucket;
+@property (nonatomic, readonly, copy) NSString *bucket;
 
 /** @name Storing Data with LeanCloud */
 
@@ -82,6 +92,11 @@ The name of the file.
  File metadata, caller is able to store additional values here.
  */
 @property (readwrite, strong) NSMutableDictionary * metaData;
+
+/*!
+ *  The access control list  for this file.
+ */
+@property (nonatomic, strong) AVACL *ACL;
 
 /*!
  Saves the file.
@@ -264,6 +279,11 @@ The name of the file.
                width:(int)width
               height:(int)height
            withBlock:(AVImageResultBlock)block;
+
+/*!
+ Create an AVFileQuery which returns files.
+ */
++ (AVFileQuery *)query;
 
 /*!
  Sets a owner id to metadata.

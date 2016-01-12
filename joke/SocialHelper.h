@@ -7,15 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Joke.h"
+#import "AVObject.h"
 
 @interface SocialHelper : NSObject
 +(void)registerAppWithDelegate:(id) delegate;
 +(BOOL) handleOpenURL:(NSURL *) url delegate:(id) delegate;
 
-+ (void) sendJokeToWeixin:(Joke*)joke;
-+ (void) sendJokeToWeixinTimeline:(Joke*)joke;
++ (void) sendJokeToWeixin:(AVObject*)joke;
++ (void) sendJokeToWeixinTimeline:(AVObject*)joke;
 
-+ (void) sendJokeToQQ:(Joke*)joke;
-+ (void) sendJokeToQZone:(Joke*)joke;
++ (void) sendJokeToQQ:(AVObject*)joke;
++ (void) sendJokeToQZone:(AVObject*)joke;
+
++(void)showShareActionSheetWithJoke:(AVObject*)joke;
 @end

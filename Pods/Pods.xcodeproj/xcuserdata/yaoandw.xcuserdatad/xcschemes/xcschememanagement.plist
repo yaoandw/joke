@@ -8,157 +8,141 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>DACircularProgress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>EGYWebViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
+		</dict>
+		<key>LGSideMenuController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>LeanCloudSocial.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>MCFireworksButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
-		<key>MMDrawerController.xcscheme</key>
+		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
 		</dict>
 		<key>MWPhotoBrowser-MWPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>9</integer>
 		</dict>
 		<key>MWPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>10</integer>
 		</dict>
 		<key>React.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>11</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>12</integer>
 		</dict>
 		<key>SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>13</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>06C48E89E5E48A0A7C3FF23ADB24A5A4</key>
+		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1F9DA19627C9BF17345DAD65787E01BF</key>
+		<key>5813251FEA21E4AEE97385709F1912DE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1FE24182B806F5347A472C0CF013D075</key>
+		<key>65C4A4A09F30AC64207E0C12C6EFEE82</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2060838DBE17731E1B73164B8EEF2564</key>
+		<key>71B76793A3B7514D38CE8C93A9B8C8F4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5352D432641F0656C90741034E32F31E</key>
+		<key>838EDDA6A5F33381B8FA8C8868179F26</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6199D81F32D079A4953C1A095E36AB3B</key>
+		<key>8F74D9EA91F4C43190670066BAC37D44</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>66CCD040ECE5DB60D38C2132593DB493</key>
+		<key>9775596B3CA16905FC8F66DA8E2A3C67</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9249BD33C2A2CE79C10D9A4A0758AE0F</key>
+		<key>9DDF91B255EA296F6D64C6CE330C3CB2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AAFF007799A8A6FD7BACF2413AE65947</key>
+		<key>CCFB62EA9886BEE9646B3C72BCB6D2AA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC417567DE329CCA546191BCC1A9C562</key>
+		<key>CDF69CBB316F576EA4926E5CEEC1531C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B281DA29A9C3EDFB45BA53651F6BA611</key>
+		<key>DE3B07ED7FF04F506B0C5E00F4973589</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BEF5AF240F0F311DFE813490EF2904B4</key>
+		<key>E2FE87384A67337831E53490EEA8BF11</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CE49E51F335367A09CB5E17E8A078192</key>
+		<key>F4E52E8432BD631CF7C754C25DB9F04C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE2F1D7B9D9FCEA148517E4657B243F4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -19,6 +19,7 @@
 #import "LoginHelper.h"
 #import "ColorUtil.h"
 #import "AppDelegate.h"
+#import "LeanCloudHelper.h"
 
 @interface JokeCell()<MWPhotoBrowserDelegate>
 @property(nonatomic,strong)NSMutableArray *photos;
@@ -27,10 +28,32 @@
 @property(nonatomic,strong)CALayer *bottomBorderLayer;
 @property(nonatomic,strong)CALayer *leftBorderLayer1;
 @property(nonatomic,strong)CALayer *leftBorderLayer2;
+
+@property(nonatomic,assign)BOOL supported;
+@property(nonatomic,assign)BOOL favorited;
+
 @end
 
 @implementation JokeCell
 CGFloat toolViewHeight = 30.0f;
+static NSDateFormatter  *todayDateformatter;//今天 11:08
+static NSDateFormatter  *yesterdayDateformatter;//昨天 02:54
+static NSDateFormatter  *thisMonthDateformatter;//25日 09:24
+static NSDateFormatter  *thisYearDateformatter;//03月22日
+static NSDateFormatter  *olderDateformatter;//14年06月02日
++(void)initialize{
+    todayDateformatter=[[NSDateFormatter alloc] init];
+    yesterdayDateformatter = [[NSDateFormatter alloc] init];
+    thisMonthDateformatter = [[NSDateFormatter alloc] init];
+    thisYearDateformatter = [[NSDateFormatter alloc] init];
+    olderDateformatter = [[NSDateFormatter alloc] init];
+    [todayDateformatter setDateFormat:@"今天 HH:mm"];
+    [yesterdayDateformatter setDateFormat:@"昨天 HH:mm"];
+    [thisMonthDateformatter setDateFormat:@"dd日 HH:mm"];
+    [thisYearDateformatter setDateFormat:@"MM月dd日"];
+    [olderDateformatter setDateFormat:@"yy年MM月dd日"];
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -52,10 +75,12 @@ CGFloat toolViewHeight = 30.0f;
 
     // Configure the view for the selected state
 }
--(void)setJokeCell:(Joke*)joke parentViewController:(UIViewController*)parentViewController{
+-(void)setJokeCell:(AVObject*)joke parentViewController:(UIViewController*)parentViewController{
     self.parentViewController = parentViewController;
     self.joke = joke;
-    self.nameLabel.text = [joke.name processName];
+    self.supported = [joke[@"supportUsers"] containsObject:[AVUser currentUser]];
+    self.favorited = [joke[@"favoriteUsers"] containsObject:[AVUser currentUser]];
+    self.nameLabel.text = [joke[@"name"] processName];
     
     self.nameLabel.textColor = [ColorUtil getFontMainColor];
     self.contentLabel.textColor = [ColorUtil getFontMainColor];
@@ -69,10 +94,15 @@ CGFloat toolViewHeight = 30.0f;
     
     CGFloat windowWidth = parentViewController.view.bounds.size.width;
     
-    NSString *content = joke.content;
+    [self.playButton setHidden:YES];
+    [self.tipLabel setHidden:YES];
+    
+    NSString *content = joke[@"content"];
     CGFloat contentWidth = windowWidth - 10;
     content = [[content stringByUnescapingHTML] stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
-    CGSize textSize=[content sizeWithFont:fontSize_4 constrainedToSize:CGSizeMake(contentWidth, 1000) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    CGRect textRect = [content boundingRectWithSize:CGSizeMake(contentWidth, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:fontSize_4} context:nil];
+    CGSize textSize=textRect.size;
     [self.contentLabel setText:content];
     self.contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.contentLabel.numberOfLines = 0;
@@ -81,13 +111,15 @@ CGFloat toolViewHeight = 30.0f;
     //[self.forwardButton setFrame:CGRectMake(windowWidth-40, 5, 30, 30)];
     //[self.timeLabel setFrame:CGRectMake(windowWidth-110, 5, 100, 30)];
     
-    if (joke.thmurl.length > 0) {
-        DLog(@"joke.thmurl:%@,joke.imgurl:%@",joke.thmurl,joke.imgurl);
+    NSString *thmurl = joke[@"thmurl"];
+    if (thmurl.length > 0) {
+        DLog(@"joke.thmurl:%@,joke.imgurl:%@",thmurl,joke[@"imgurl"]);
         [self.thumbImageView setHidden:NO];
         [self.thumbImageView setFrame:CGRectMake(10, self.contentLabel.frame.origin.y+self.contentLabel.frame.size.height+10, (windowWidth-20), 200)];
-        [self.thumbImageView setYyconImageWithURL:[NSURL URLWithString:joke.thmurl] placeholderImage:[OLImage imageNamed:@"loading.gif"]];
+        [self.thumbImageView setYyconImageWithURL:[NSURL URLWithString:thmurl] placeholderImage:[OLImage imageNamed:@"loading.gif"]];
         
-        if (joke.videourl.length > 0) {//视频,显示播放按钮
+        NSString *videourl = joke[@"videourl"];
+        if (videourl.length > 0) {//视频,显示播放按钮
             [self.playButton setHidden:NO];
             [self.tipLabel setHidden:YES];
             [self.playButton setFrame:CGRectMake((windowWidth-320)/2+120, self.thumbImageView.frame.origin.y+60, 80, 80)];
@@ -106,13 +138,53 @@ CGFloat toolViewHeight = 30.0f;
     [self.toolView setFrame:CGRectMake(0, toolViewY+5, windowWidth, toolViewHeight)];
     [self.panelView setFrame:CGRectMake(0, 5, windowWidth, toolViewY+toolViewHeight+5)];
     
-    [self.timeLabel setText:joke.time];
+    NSDate *  cmtTime=joke[@"time"];
+    NSDateComponents *cmtDay = [[NSCalendar currentCalendar] components:NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:cmtTime];
+    NSDateComponents *today = [[NSCalendar currentCalendar] components:NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
+    NSString *stringDate;
+    if (cmtDay.day == today.day && cmtDay.month == today.month && cmtDay.year == today.year) {
+        stringDate = [todayDateformatter stringFromDate:cmtTime];
+    }else if (cmtDay.day+1 == today.day && cmtDay.month == today.month && cmtDay.year == today.year){
+        stringDate = [yesterdayDateformatter stringFromDate:cmtTime];
+    }else if (cmtDay.month == today.month && cmtDay.year == today.year){
+        stringDate = [thisMonthDateformatter stringFromDate:cmtTime];
+    }else if (cmtDay.year == today.year){
+        stringDate = [thisYearDateformatter stringFromDate:cmtTime];
+    }else{
+        stringDate = [olderDateformatter stringFromDate:cmtTime];
+    }
+
+    [self.timeLabel setText:stringDate];
     //[self.timeLabel setFrame:CGRectMake(10, self.contentLabel.frame.origin.y+self.contentLabel.frame.size.height+10, 300, 30)];
     
     NSMutableDictionary *userSettings = [FileUtil getUserSettings];
     BOOL nightMode = [[userSettings objectForKey:@"nightMode"] boolValue];
     if (nightMode) {
         
+    }
+    
+    UIImage *supportImage = self.supported?[UIImage imageNamed:@"timeline_icon_like"]:[UIImage imageNamed:@"timeline_icon_unlike"];
+    [self.supportButton setImage:supportImage forState:(UIControlStateNormal)];
+    
+    UIImage *favoriteImage = self.favorited?[UIImage imageNamed:@"toolbar_favorite_highlighted"]:[UIImage imageNamed:@"toolbar_favorite"];
+    [self.favoriteButton setImage:favoriteImage forState:(UIControlStateNormal)];
+    long supportCount = [joke[@"supportUsers"] count];
+    long commentCount = [joke[@"comments"] count];
+    NSNumber *forwardCount = joke[@"forward"];
+    if (supportCount > 0) {
+        [self.supportButton setTitle:[NSString stringWithFormat:@"%ld",supportCount] forState:(UIControlStateNormal)];
+    }else{
+        [self.supportButton setTitle:@"赞" forState:(UIControlStateNormal)];
+    }
+    if (commentCount > 0) {
+        [self.commentButton setTitle:[NSString stringWithFormat:@"%ld",commentCount] forState:(UIControlStateNormal)];
+    }else{
+        [self.commentButton setTitle:@"评论" forState:(UIControlStateNormal)];
+    }
+    if (forwardCount && forwardCount.longValue > 0) {
+        [self.forwardButton setTitle:forwardCount.stringValue forState:(UIControlStateNormal)];
+    }else{
+        [self.forwardButton setTitle:@"分享" forState:(UIControlStateNormal)];
     }
 }
 
@@ -156,6 +228,11 @@ CGFloat toolViewHeight = 30.0f;
         self.forwardButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, windowWidth/3, toolViewHeight)];
         [self.forwardButton setImage:[UIImage imageNamed:@"timeline_icon_retweet"] forState:UIControlStateNormal];
         [self.forwardButton addTarget:self action:@selector(forwardButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.forwardButton setTitleColor:[UIColor grayColor] forState:(UIControlStateNormal)];
+        self.forwardButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        [self.forwardButton setTitleEdgeInsets:(UIEdgeInsetsMake(0, 10, 0, 0))];
+        
         [self.toolView addSubview:self.forwardButton];
     }
     if (!self.commentButton) {
@@ -164,6 +241,10 @@ CGFloat toolViewHeight = 30.0f;
         [self.commentButton addTarget:self action:@selector(commentButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.commentButton.layer addSublayer: self.leftBorderLayer1];
+        
+        [self.commentButton setTitleColor:[UIColor grayColor] forState:(UIControlStateNormal)];
+        self.commentButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        [self.commentButton setTitleEdgeInsets:(UIEdgeInsetsMake(0, 10, 0, 0))];
         
         [self.toolView addSubview:self.commentButton];
     }
@@ -174,12 +255,17 @@ CGFloat toolViewHeight = 30.0f;
         
         [self.supportButton.layer addSublayer: self.leftBorderLayer2];
         
+        [self.supportButton setTitleColor:[UIColor grayColor] forState:(UIControlStateNormal)];
+        self.supportButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        [self.supportButton setTitleEdgeInsets:(UIEdgeInsetsMake(0, 10, 0, 0))];
+        
         [self.toolView addSubview:self.supportButton];
     }
     if (!self.favoriteButton) {
         self.favoriteButton = [[MCFireworksButton alloc] initWithFrame:CGRectMake(windowWidth-40, 5, 30, 30)];
         [self.favoriteButton setImage:[UIImage imageNamed:@"toolbar_favorite"] forState:(UIControlStateNormal)];
         [self.favoriteButton addTarget:self action:@selector(favoriteButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        self.favoriteButton.userInteractionEnabled = YES;
         [self.panelView addSubview:self.favoriteButton];
         
     }
@@ -220,31 +306,36 @@ CGFloat toolViewHeight = 30.0f;
         [self.panelView addSubview:self.tipLabel];
     }
 }
-+(CGFloat)calJokeCellHeight:(Joke*)joke parentViewController:(UIViewController*)parentViewController{
+#pragma mark - height
++(CGFloat)calJokeCellHeight:(AVObject*)joke{
     CGFloat nameHeight = 40;
     
-    CGFloat windowWidth = parentViewController.view.bounds.size.width;
+    CGFloat windowWidth = MyAppDelegate.window.bounds.size.width;
     
-    NSString *content = joke.content;
+    NSString *content = joke[@"content"];
     CGFloat contentWidth = windowWidth - 10;
     content = [[content stringByUnescapingHTML] stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
-    CGSize textSize=[content sizeWithFont:fontSize_4 constrainedToSize:CGSizeMake(contentWidth, 1000) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    CGRect textRect = [content boundingRectWithSize:CGSizeMake(contentWidth, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:fontSize_4} context:nil];
+    CGSize textSize=textRect.size;
     
     CGFloat contentHeight = textSize.height;
     
     CGFloat imgHeight = 0;
-    if (joke.thmurl.length>0) {
+    NSString *thmurl = joke[@"thmurl"];
+    if (thmurl.length>0) {
         imgHeight = 20+200;
     }
     return nameHeight + contentHeight + imgHeight + toolViewHeight +15;
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)gestRecon{
-    if (self.joke.videourl.length > 0) {
+    NSString *videourl = self.joke[@"videourl"];
+    if (videourl.length > 0) {
         
     }else{
         // Or use this constructor to receive an NSArray of IDMPhoto objects from your NSURL objects
-        DLog(@"joke.imgurl: %@",self.joke.imgurl);
+        DLog(@"joke.imgurl: %@",self.joke[@"imgurl"]);
         /*NSArray *photos = [IDMPhoto photosWithURLs:@[[NSURL URLWithString:self.joke.imgurl]]];
         
         // Create and setup browser
@@ -261,7 +352,7 @@ CGFloat toolViewHeight = 30.0f;
         */
         
         self.photos = [NSMutableArray array];
-        [self.photos addObject:[MWPhoto photoWithURL:[NSURL URLWithString:self.joke.imgurl]]];
+        [self.photos addObject:[MWPhoto photoWithURL:[NSURL URLWithString:self.joke[@"imgurl"]]]];
         MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
         // Set options
         browser.displayActionButton = YES; // Show action button to allow sharing, copying, etc (defaults to YES)
@@ -297,82 +388,73 @@ CGFloat toolViewHeight = 30.0f;
     return nil;
 }
 -(void)playButtonTap:(UIButton*)button{
-    NSString *url = [NSString stringWithFormat:@"%@&isAutoPlay=true",self.joke.videourl];
+    NSString *url = [NSString stringWithFormat:@"%@&isAutoPlay=true",self.joke[@"videourl"]];
     DLog(@"url:%@",url);
     EGYWebViewController *webViewController = [[EGYWebViewController alloc] initWithAddress:url];
     [self.parentViewController.navigationController pushViewController:webViewController animated:YES];
 }
 
 -(void)forwardButtonTapped:(UIButton*)button{
-    //qq空间不支持纯文本的分享
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"分享到..." delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信",@"微信朋友圈",@"qq", nil];
-    if (self.joke.thmurl.length > 0){//如果是笑图
-        sheet = [[UIActionSheet alloc] initWithTitle:@"分享到..." delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信",@"微信朋友圈",@"qq",@"qq空间", nil];
-    }
-    [sheet showInView:MyAppDelegate.window];
-    
-    //在分享代码前设置微信分享应用类型，用户点击消息将跳转到应用，或者到下载页面
-    //UMSocialWXMessageTypeImage 为纯图片类型
-    /*
-    UIImage *shareImage = [UIImage imageNamed:@"icon"];
-    if (self.joke.thmurl.length > 0){//如果是笑图
-        [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeApp;
-        shareImage = self.thumbImageView.image;
-    }else{
-        [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeText;
-    }
-    
-    //分享图文样式到微信朋友圈显示字数比较少，只显示分享标题
-    //[UMSocialData defaultData].extConfig.title = @"朋友圈分享内容yycon";
-    //设置微信好友或者朋友圈的分享url,下面是微信好友，微信朋友圈对应wechatTimelineData
-    //[UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://xxxx";//UMSocialYXMessageTypeWeb 类型 点击微信消息后跳转
-    
-    //[UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
-    
-    
-    [UMSocialSnsService presentSnsIconSheetView:self.parentViewController
-                                         appKey:UM_APPKEY
-                                      shareText:[NSString stringWithFormat:@"%@【来自笑哈哈】", self.joke.content]
-                                     shareImage:shareImage
-                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,UMShareToQzone, UMShareToQQ,UMShareToTencent,UMShareToSina,UMShareToRenren,nil]
-                                       delegate:self];
-    */
+    [SocialHelper showShareActionSheetWithJoke:self.joke];
 }
-#pragma mark uiactionsheet delegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 0:
-            [SocialHelper sendJokeToWeixin:self.joke];
-            break;
-        case 1:
-            [SocialHelper sendJokeToWeixinTimeline:self.joke];
-            break;
-        case 2:
-            [SocialHelper sendJokeToQQ:self.joke];
-            break;
-        case 3:
-            [SocialHelper sendJokeToQZone:self.joke];
-            break;
-        default:
-            break;
-    }
-}
+
 -(void)commentButtonTapped:(UIButton*)button{
-    
+    if ([self.delegate respondsToSelector:@selector(jokeCell:commentButtonTappedOfjoke:)]) {
+        [self.delegate jokeCell:self commentButtonTappedOfjoke:self.joke];
+    }
 }
 -(void)supportButtonTapped:(UIButton*)button{
     [[LoginHelper getInstance] loginWithBlock:^(AVUser *user) {
-        
+        UIImage *likeImage;
+        if (self.supported) {
+            [LeanCloudHelper deleteSupportWithJoke:self.joke];
+            likeImage = [UIImage imageNamed:@"timeline_icon_unlike"];
+        }else{
+            [LeanCloudHelper saveSupportWithJoke:self.joke];
+            likeImage = [UIImage imageNamed:@"timeline_icon_like"];
+        }
         [self.supportButton popOutsideWithDuration:0.5];
-        [self.supportButton setImage:[UIImage imageNamed:@"timeline_icon_like"] forState:(UIControlStateNormal)];
+        [self.supportButton setImage:likeImage forState:(UIControlStateNormal)];
         [self.supportButton animate];
+        //需要更新maincontroller中,supportedJokes
+        if ([self.delegate respondsToSelector:@selector(jokeCell:joke:supported:)]) {
+            [self.delegate jokeCell:self joke:self.joke supported:self.supported];
+        }
     }];
 }
 -(void)favoriteButtonTapped:(UIButton*)button{
     [[LoginHelper getInstance] loginWithBlock:^(AVUser *user) {
+        UIImage *favoriteImage;
+        if (self.favorited) {
+            [LeanCloudHelper deleteFavoriteWithJoke:self.joke];
+            favoriteImage = [UIImage imageNamed:@"toolbar_favorite"];
+        }else{
+            [LeanCloudHelper saveFavoriteWithJoke:self.joke onSuccess:nil onError:nil];
+            favoriteImage = [UIImage imageNamed:@"toolbar_favorite_highlighted"];
+        }
         [self.favoriteButton popOutsideWithDuration:0.5];
-        [self.favoriteButton setImage:[UIImage imageNamed:@"toolbar_favorite_highlighted"] forState:(UIControlStateNormal)];
+        [self.favoriteButton setImage:favoriteImage forState:(UIControlStateNormal)];
         [self.favoriteButton animate];
+        //需要更新maincontroller中,favoritedJokes
+        if ([self.delegate respondsToSelector:@selector(jokeCell:joke:favorited:)]) {
+            [self.delegate jokeCell:self joke:self.joke favorited:self.supported];
+        }
     }];
+}
+
+-(void)reportJoke:(id)sender {
+    // find my collection view
+    UIView* v = self;
+    do {
+        v = v.superview;
+    } while (![v isKindOfClass:[UITableView class]]);
+    UITableView* cv = (UITableView*) v;
+    // ask it what index path we are
+    NSIndexPath* ip = [cv indexPathForCell:self];
+    // talk to its delegate
+    if (cv.delegate && [cv.delegate respondsToSelector:
+                        @selector(tableView:performAction:forRowAtIndexPath:withSender:)])
+        [cv.delegate tableView:cv performAction:_cmd
+             forRowAtIndexPath:ip withSender:sender];
 }
 @end

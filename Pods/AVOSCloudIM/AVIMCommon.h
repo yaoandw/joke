@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import <AVOSCloud/AVOSCloud.h>
 
 @class AVIMConversation;
 
@@ -35,3 +33,25 @@ typedef void (^AVIMBooleanResultBlock)(BOOL succeeded, NSError *error);
 typedef void (^AVIMIntegerResultBlock)(NSInteger number, NSError *error);
 typedef void (^AVIMArrayResultBlock)(NSArray *objects, NSError *error);
 typedef void (^AVIMConversationResultBlock)(AVIMConversation *conversation, NSError *error);
+typedef void (^AVIMProgressBlock)(NSInteger percentDone);
+
+/* Cache policy */
+typedef NS_ENUM(int, AVIMCachePolicy) {
+    /* Query from server and do not save result to local cache. */
+    kAVIMCachePolicyIgnoreCache = 0,
+
+    /* Only query from local cache. */
+    kAVIMCachePolicyCacheOnly,
+
+    /* Only query from server, and save result to local cache. */
+    kAVIMCachePolicyNetworkOnly,
+
+    /* Firstly query from local cache, if fails, query from server. */
+    kAVIMCachePolicyCacheElseNetwork,
+
+    /* Firstly query from server, if fails, query local cache. */
+    kAVIMCachePolicyNetworkElseCache,
+
+    /* Firstly query from local cache, then query from server. The callback will be called twice. */
+    kAVIMCachePolicyCacheThenNetwork,
+};

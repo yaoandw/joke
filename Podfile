@@ -5,8 +5,18 @@ platform :ios, '7.0'
 #pod 'AVOSCloudIMDynamic'
 # 如果使用崩溃收集功能，可以添加：
 #pod 'AVOSCloudCrashReportingDynamic'
-pod 'React'
-pod 'React/RCTText'
+#pod 'React'
+#pod 'React/RCTText'
+# Depending on how your project is organized, your node_modules directory may be
+# somewhere else; tell CocoaPods where you've installed react-native from npm
+pod 'React', :path => '/Users/yaoandw/Documents/ios/react/react-native', :subspecs => [
+  'Core',
+  'RCTImage',
+  'RCTNetwork',
+  'RCTText',
+  'RCTWebSocket',
+  # Add any other subspecs you want to use in your project
+]
 pod "AFNetworking", "~> 2.0"
 pod 'EGYWebViewController'
 pod 'SVProgressHUD'
@@ -16,4 +26,7 @@ pod 'AVOSCloudIM'
 pod 'LeanCloudSocial'
 pod 'MCFireworksButton'
 pod "MWPhotoBrowser"
-pod 'MMDrawerController', '~> 0.5.7'
+#pod 'MMDrawerController', '~> 0.5.7'
+pod 'MJRefresh'
+pod 'LGSideMenuController', '~> 1.0.0'
+pod 'Bugly'

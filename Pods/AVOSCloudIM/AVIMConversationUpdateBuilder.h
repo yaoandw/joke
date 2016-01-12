@@ -8,6 +8,9 @@
 
 #import "AVIMCommon.h"
 
+/**
+ *  Dictionary Builder to update conversation
+ */
 @interface AVIMConversationUpdateBuilder : NSObject
 /*!
  名称
@@ -20,7 +23,7 @@
 @property(nonatomic, strong)NSDictionary *attributes;
 
 /*!
- 生成更新字典
+ 生成更新字典。之后可调用 -[AVIMConversation update:callback:] 来更新对话。
  @return 更新用的字典
  */
 - (NSDictionary *)dictionary;

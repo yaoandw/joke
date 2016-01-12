@@ -31,7 +31,7 @@ extern NSString *const kAVIMKeyConversationId;
 /*!
  设置缓存策略，默认是 kAVCachePolicyCacheElseNetwork
  */
-@property (nonatomic) AVCachePolicy cachePolicy;
+@property (nonatomic) AVIMCachePolicy cachePolicy;
 
 /*!
  设置缓存的过期时间，默认是 1 小时（1 * 60 * 60）

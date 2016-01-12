@@ -11,37 +11,22 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "LeftTableViewController.h"
 #import "MainTableViewController.h"
-#import "MMDrawerController.h"
-#import "MMDrawerVisualState.h"
 #import "JokeNavController.h"
+#import "MainViewController.h"
+#import <Bugly/CrashReporter.h>
 
 @interface AppDelegate ()
-@property (nonatomic,strong) MMDrawerController * drawerController;
 
 @end
 
 @implementation AppDelegate
 -(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     
-    UIViewController * leftSideDrawerViewController = [[LeftTableViewController alloc] init];
-    
     UIViewController * centerViewController = [[MainTableViewController alloc] init];
     
     UINavigationController * navigationController = [[JokeNavController alloc] initWithRootViewController:centerViewController];
-    [navigationController setRestorationIdentifier:@"JokeCenterNavigationControllerRestorationKey"];
-    UINavigationController * leftSideNavController = [[JokeNavController alloc] initWithRootViewController:leftSideDrawerViewController];
-    [leftSideNavController setRestorationIdentifier:@"JokeLeftNavigationControllerRestorationKey"];
-    self.drawerController = [[MMDrawerController alloc]
-                             initWithCenterViewController:navigationController
-                             leftDrawerViewController:leftSideNavController
-                             rightDrawerViewController:nil];
-    [self.drawerController setShowsShadow:NO];
-    [self.drawerController setRestorationIdentifier:@"Joke"];
-    //[self.drawerController setMaximumRightDrawerWidth:200.0];
-    [self.drawerController setMaximumLeftDrawerWidth:150.0];
-    [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-    [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     
+    MainViewController *mainController = [[MainViewController alloc] initWithRootViewController:navigationController];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -50,7 +35,7 @@
                                            blue:234.0/255.0
                                           alpha:1.0];
     [self.window setTintColor:tintColor];
-    [self.window setRootViewController:self.drawerController];
+    [self.window setRootViewController:mainController];
     
     return YES;
 }
@@ -60,10 +45,21 @@
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
     
     //使用leancloud
+    setenv("LOG_CURL", "YES", 0);
     //如果使用美国站点，请加上这行代码 [AVOSCloud useAVCloudUS];
     [AVOSCloud setApplicationId:@"eq5tge5ziB5wPQdu1WJyy3O2" clientKey:@"EjyBMtW8AJatUGpw6mKaszPR"];
     //跟踪统计应用的打开情况
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    //使用腾讯的bugly进行错误统计
+    // 初始化之前，开启调式Log
+#if DEBUG == 1
+    [[CrashReporter sharedInstance] enableLog:YES];
+#endif
+    // 初始化SDK, 请使用在Bugly平台上注册应用的 AppId, 注意不要填写AppKey
+    [[CrashReporter sharedInstance] installWithAppId:@"900016009"];
+    //    [[CrashReporter sharedInstance] setExpMergeUpload:YES];
+//    exp_call_back_func = &my_exp_callback;
     
     //设置友盟统计分析
     //[MobClick startWithAppkey:UM_APPKEY reportPolicy:SEND_INTERVAL   channelId:nil];

@@ -197,37 +197,37 @@ static NSLock *localMsgLock;
 
 #pragma mark - custom
 //最新笑话
-+(void) cacheLastestJokes:(JokeXmlModel*)lastestJokes{
++(void) cacheLastestJokes:(NSArray*)lastestJokes{
     [self cacheData:[NSKeyedArchiver archivedDataWithRootObject:lastestJokes]
              toFile:@"lastest_jokes.archive"];
 }
-+(JokeXmlModel*) getCachedLastestJokes{
++(NSArray*) getCachedLastestJokes{
     return [NSKeyedUnarchiver unarchiveObjectWithData:[self dataForFile:@"lastest_jokes.archive"]];
 }
 //随机笑话
-+(void) cacheRadomJokes:(JokeXmlModel*)radomJokes{
++(void) cacheRadomJokes:(NSArray*)radomJokes{
     [self cacheData:[NSKeyedArchiver archivedDataWithRootObject:radomJokes]
              toFile:@"radom_jokes.archive"];
 }
 
-+(JokeXmlModel*) getCachedRadomJokes{
++(NSArray*) getCachedRadomJokes{
     return [NSKeyedUnarchiver unarchiveObjectWithData:[self dataForFile:@"radom_jokes.archive"]];
 }
 //最新笑图
-+(void) cacheLastestRichJokes:(JokeXmlModel*)lastestRichJokes{
++(void) cacheLastestRichJokes:(NSArray*)lastestRichJokes{
     [self cacheData:[NSKeyedArchiver archivedDataWithRootObject:lastestRichJokes]
              toFile:@"lastest_richjokes.archive"];
 }
-+(JokeXmlModel*) getCachedLastestRichJokes{
++(NSArray*) getCachedLastestRichJokes{
     return [NSKeyedUnarchiver unarchiveObjectWithData:[self dataForFile:@"lastest_richjokes.archive"]];
 }
 
 //随机笑图
-+(void) cacheRadomRichJokes:(JokeXmlModel*)radomRichJokes{
++(void) cacheRadomRichJokes:(NSArray*)radomRichJokes{
     [self cacheData:[NSKeyedArchiver archivedDataWithRootObject:radomRichJokes]
              toFile:@"radom_richjokes.archive"];
 }
-+(JokeXmlModel*) getCachedRadomRichJokes{
++(NSArray*) getCachedRadomRichJokes{
     return [NSKeyedUnarchiver unarchiveObjectWithData:[self dataForFile:@"radom_richjokes.archive"]];
 }
 @end

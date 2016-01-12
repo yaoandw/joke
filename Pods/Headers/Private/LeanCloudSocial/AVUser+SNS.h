@@ -1,1 +1,1 @@
-../../../LeanCloudSocial/LeanCloudSocial/AVUser+SNS.h
+../../../LeanCloudSocial/Classes/AVUser+SNS.h

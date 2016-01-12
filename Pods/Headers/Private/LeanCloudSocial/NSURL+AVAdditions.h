@@ -1,1 +1,1 @@
-../../../LeanCloudSocial/LeanCloudSocial/NSURL+AVAdditions.h
+../../../LeanCloudSocial/Classes/NSURL+AVAdditions.h

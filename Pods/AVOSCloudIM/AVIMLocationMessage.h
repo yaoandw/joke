@@ -8,9 +8,20 @@
 
 #import "AVIMTypedMessage.h"
 
+/**
+ *  Location Message.
+ */
 @interface AVIMLocationMessage : AVIMTypedMessage <AVIMTypedMessageSubclassing>
-@property(nonatomic, readonly)float latitude;  //纬度
-@property(nonatomic, readonly)float longitude;  //经度
+
+/**
+ *  Latitude. Should be 0~90.
+ */
+@property(nonatomic, readonly)float latitude;
+
+/**
+ *  Longitude, Should be 0~360.
+ */
+@property(nonatomic, readonly)float longitude;
 
 /*!
  创建位置消息。

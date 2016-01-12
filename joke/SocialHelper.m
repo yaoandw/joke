@@ -12,6 +12,7 @@
 #import "TencentOpenAPI/QQApiInterface.h"
 #import "TencentOpenAPI/TencentOAuth.h"
 #import <AVOSCloudSNS.h>
+#import "SocialShareDelegate.h"
 
 
 @implementation SocialHelper
@@ -23,24 +24,25 @@
     return [AVOSCloudSNS handleOpenURL:url];
 }
 
-+ (void) sendJokeToWeixin:(Joke*)joke{
++ (void) sendJokeToWeixin:(AVObject*)joke{
     [self sendJokeToWX:joke wxScene:WXSceneSession];
 }
-+ (void) sendJokeToWeixinTimeline:(Joke*)joke{
++ (void) sendJokeToWeixinTimeline:(AVObject*)joke{
     [self sendJokeToWX:joke wxScene:WXSceneTimeline];
 }
-+ (void) sendJokeToWX:(Joke*)joke wxScene:(int)wxScene{
++ (void) sendJokeToWX:(AVObject*)joke wxScene:(int)wxScene{
     if (![WXApi isWXAppInstalled]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"微信没有安装" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alert show];
         return;
     }
     
-    if (joke.thmurl.length > 0){//如果是笑图
+    NSString *thmurl = joke[@"thmurl"];
+    if (thmurl.length > 0){//如果是笑图
         [self sendJokeAsArticle:joke wxScene:wxScene];
     }else{
         SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-        req.text = [NSString stringWithFormat:@"%@【来自笑哈哈】", joke.content];
+        req.text = [NSString stringWithFormat:@"%@【来自笑哈哈】", joke[@"content"]];
         req.bText = YES;
         req.scene = wxScene;
         
@@ -49,13 +51,13 @@
     
     
 }
-+(void)sendJokeAsArticle:(Joke*)joke wxScene:(int)wxScene{
++(void)sendJokeAsArticle:(AVObject*)joke wxScene:(int)wxScene{
     SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
     WXMediaMessage* message = [WXMediaMessage message];
-    message.title = joke.content;
-    message.description = joke.content;
+    message.title = joke[@"content"];
+    message.description = joke[@"content"];
     
-    NSURL *imageUrl = [NSURL URLWithString:joke.thmurl];
+    NSURL *imageUrl = [NSURL URLWithString:joke[@"thmurl"]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:imageUrl];
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
     UIImage *localCachedImage = [FileUtil cachedAFNetworkingImageForRequest:request];
@@ -76,10 +78,11 @@
     
     WXWebpageObject *ext = [WXWebpageObject object];
     
-    if (joke.videourl.length>0) {
-        ext.webpageUrl = joke.videourl;
+    NSString *videourl = joke[@"videourl"];
+    if (videourl.length>0) {
+        ext.webpageUrl = videourl;
     }else{
-        ext.webpageUrl = joke.imgurl;
+        ext.webpageUrl = joke[@"imgurl"];
     }
     
     message.mediaObject = ext;
@@ -96,25 +99,27 @@
 }
 
 
-+ (void) sendJokeToQQ:(Joke*)joke{
++ (void) sendJokeToQQ:(AVObject*)joke{
     SendMessageToQQReq *req = [self doInitQQReq:joke];
     QQApiSendResultCode sent = [QQApiInterface sendReq:req];
 }
-+ (void) sendJokeToQZone:(Joke*)joke{
++ (void) sendJokeToQZone:(AVObject*)joke{
     SendMessageToQQReq *req = [self doInitQQReq:joke];
     QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
 }
-+(SendMessageToQQReq*)doInitQQReq:(Joke*)joke{
-    if (joke.thmurl.length > 0){//如果是笑图
++(SendMessageToQQReq*)doInitQQReq:(AVObject*)joke{
+    NSString *thmurl = joke[@"thmurl"];
+    if (thmurl.length > 0){//如果是笑图
         NSString *utf8String = @"http://www.163.com";
-        if (joke.videourl.length>0) {
-            utf8String = joke.videourl;
+        NSString *videourl = joke[@"videourl"];
+        if (videourl.length>0) {
+            utf8String = videourl;
         }else{
-            utf8String = joke.imgurl;
+            utf8String = joke[@"imgurl"];
         }
-        NSString *title = joke.content;
-        NSString *description = joke.content;
-        NSString *previewImageUrl = joke.thmurl;
+        NSString *title = joke[@"content"];
+        NSString *description = joke[@"content"];
+        NSString *previewImageUrl = thmurl;
         QQApiNewsObject *newsObj = [QQApiNewsObject
                                     objectWithURL:[NSURL URLWithString:utf8String]
                                     title:title
@@ -124,9 +129,20 @@
         
         return req;
     }else{
-        QQApiTextObject *txtObj = [QQApiTextObject objectWithText:joke.content];
+        QQApiTextObject *txtObj = [QQApiTextObject objectWithText:joke[@"content"]];
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:txtObj];
         return req;
     }
+}
+
++(void)showShareActionSheetWithJoke:(AVObject*)joke{
+    SocialShareDelegate *dele = [SocialShareDelegate getInstanceWithJoke:joke];
+    //qq空间不支持纯文本的分享
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"分享到..." delegate:dele cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信",@"微信朋友圈",@"qq", nil];
+    NSString *thmurl = joke[@"thmurl"];
+    if (thmurl.length > 0){//如果是笑图
+        sheet = [[UIActionSheet alloc] initWithTitle:@"分享到..." delegate:dele cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信",@"微信朋友圈",@"qq",@"qq空间", nil];
+    }
+    [sheet showInView:MyAppDelegate.window];
 }
 @end

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JokeXmlModel.h";
 
 @interface AppCache : NSObject
 +(void)saveMemoryCacheToDisk;
@@ -19,15 +18,15 @@
 #pragma mark - custom
 
 //最新笑话
-+(void) cacheLastestJokes:(JokeXmlModel*)lastestJokes;
-+(JokeXmlModel*) getCachedLastestJokes;
++(void) cacheLastestJokes:(NSArray*)lastestJokes;
++(NSArray*) getCachedLastestJokes;
 //随机笑话
-+(void) cacheRadomJokes:(JokeXmlModel*)radomJokes;
-+(JokeXmlModel*) getCachedRadomJokes;
++(void) cacheRadomJokes:(NSArray*)radomJokes;
++(NSArray*) getCachedRadomJokes;
 //最新笑图
-+(void) cacheLastestRichJokes:(JokeXmlModel*)lastestRichJokes;
-+(JokeXmlModel*) getCachedLastestRichJokes;
++(void) cacheLastestRichJokes:(NSArray*)lastestRichJokes;
++(NSArray*) getCachedLastestRichJokes;
 //随机笑图
-+(void) cacheRadomRichJokes:(JokeXmlModel*)radomRichJokes;
-+(JokeXmlModel*) getCachedRadomRichJokes;
++(void) cacheRadomRichJokes:(NSArray*)radomRichJokes;
++(NSArray*) getCachedRadomRichJokes;
 @end

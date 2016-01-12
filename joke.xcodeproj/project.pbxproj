@@ -8,51 +8,62 @@
 
 /* Begin PBXBuildFile section */
 		731829581BC1894E00E0E909 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7318295A1BC1894E00E0E909 /* InfoPlist.strings */; };
-		731829611BC27D2900E0E909 /* SmsCodeLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 731829601BC27D2900E0E909 /* SmsCodeLoginController.m */; settings = {ASSET_TAGS = (); }; };
+		731829611BC27D2900E0E909 /* SmsCodeLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 731829601BC27D2900E0E909 /* SmsCodeLoginController.m */; };
+		731829691BC7B3DB00E0E909 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 731829681BC7B3DB00E0E909 /* RegisterViewController.m */; };
+		7318296D1BC7C2F200E0E909 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 7318296C1BC7C2F200E0E909 /* UIView+Toast.m */; };
+		738AAD1F1C363F9F00121D14 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 738AAD1E1C363F9F00121D14 /* MainViewController.m */; };
+		738AAD221C364FB200121D14 /* ReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 738AAD211C364FB200121D14 /* ReportController.m */; };
+		73A058E71BD374AF004634FC /* DetailJokeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A058E61BD374AF004634FC /* DetailJokeCell.m */; };
+		73A058EA1BD37F6F004634FC /* NewCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A058E91BD37F6F004634FC /* NewCommentController.m */; };
+		73A058ED1BD4B66F004634FC /* SocialShareDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A058EC1BD4B66F004634FC /* SocialShareDelegate.m */; };
+		73A058F01BD4EBD7004634FC /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A058EF1BD4EBD7004634FC /* FavoriteViewController.m */; };
+		73A058F41BD5E444004634FC /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A058F21BD5E444004634FC /* TencentOpenAPI.framework */; };
+		73A058F51BD5E444004634FC /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 73A058F31BD5E444004634FC /* TencentOpenApi_IOS_Bundle.bundle */; };
+		73A0AF531C44A55B0001C67B /* Game2048ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A0AF521C44A55B0001C67B /* Game2048ViewController.m */; };
 		73BAC04A1BBF9AC700FFA182 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 73BAC0491BBF9AC700FFA182 /* main.m */; };
 		73BAC04D1BBF9AC700FFA182 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 73BAC04C1BBF9AC700FFA182 /* AppDelegate.m */; };
 		73BAC0531BBF9AC700FFA182 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73BAC0511BBF9AC700FFA182 /* Main.storyboard */; };
 		73BAC0551BBF9AC700FFA182 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73BAC0541BBF9AC700FFA182 /* Assets.xcassets */; };
 		73BAC0581BBF9AC700FFA182 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73BAC0561BBF9AC700FFA182 /* LaunchScreen.storyboard */; };
-		73FF005B1BBFA22200486DDB /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73FFFF771BBFA22200486DDB /* TencentOpenAPI.framework */; settings = {ASSET_TAGS = (); }; };
-		73FF005C1BBFA22200486DDB /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 73FFFF781BBFA22200486DDB /* TencentOpenApi_IOS_Bundle.bundle */; settings = {ASSET_TAGS = (); }; };
-		73FF005D1BBFA22200486DDB /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73FFFF7A1BBFA22200486DDB /* libWeChatSDK.a */; settings = {ASSET_TAGS = (); }; };
-		73FF005E1BBFA22200486DDB /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 73FFFF7B1BBFA22200486DDB /* read_me.txt */; settings = {ASSET_TAGS = (); }; };
-		73FF005F1BBFA22200486DDB /* AFImageResponseSerializer+OLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FFFF801BBFA22200486DDB /* AFImageResponseSerializer+OLImage.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00601BBFA22200486DDB /* OLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FFFF821BBFA22200486DDB /* OLImage.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00611BBFA22200486DDB /* OLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FFFF841BBFA22200486DDB /* OLImageView.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00621BBFA22200486DDB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FFFF871BBFA22200486DDB /* Reachability.m */; settings = {ASSET_TAGS = (); }; };
-		73FF007D1BBFA28100486DDB /* ColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00721BBFA28100486DDB /* ColorUtil.m */; settings = {ASSET_TAGS = (); }; };
-		73FF007E1BBFA28100486DDB /* FileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00741BBFA28100486DDB /* FileUtil.m */; settings = {ASSET_TAGS = (); }; };
-		73FF007F1BBFA28100486DDB /* LeanCloudHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00761BBFA28100486DDB /* LeanCloudHelper.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00801BBFA28100486DDB /* LoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00781BBFA28100486DDB /* LoginHelper.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00811BBFA28100486DDB /* RESTEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF007A1BBFA28100486DDB /* RESTEngine.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00821BBFA28100486DDB /* SocialHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF007C1BBFA28100486DDB /* SocialHelper.m */; settings = {ASSET_TAGS = (); }; };
-		73FF008E1BBFA2AD00486DDB /* NSDate+yycon.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00851BBFA2AD00486DDB /* NSDate+yycon.m */; settings = {ASSET_TAGS = (); }; };
+		73F768651BC9DF20001523A8 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73F768641BC9DF20001523A8 /* DetailViewController.m */; };
+		73F768681BCAA0DF001523A8 /* DetailCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73F768671BCAA0DF001523A8 /* DetailCommentCell.m */; };
+		73FF005D1BBFA22200486DDB /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73FFFF7A1BBFA22200486DDB /* libWeChatSDK.a */; };
+		73FF005E1BBFA22200486DDB /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 73FFFF7B1BBFA22200486DDB /* read_me.txt */; };
+		73FF005F1BBFA22200486DDB /* AFImageResponseSerializer+OLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FFFF801BBFA22200486DDB /* AFImageResponseSerializer+OLImage.m */; };
+		73FF00601BBFA22200486DDB /* OLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FFFF821BBFA22200486DDB /* OLImage.m */; };
+		73FF00611BBFA22200486DDB /* OLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FFFF841BBFA22200486DDB /* OLImageView.m */; };
+		73FF00621BBFA22200486DDB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FFFF871BBFA22200486DDB /* Reachability.m */; };
+		73FF007D1BBFA28100486DDB /* ColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00721BBFA28100486DDB /* ColorUtil.m */; };
+		73FF007E1BBFA28100486DDB /* FileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00741BBFA28100486DDB /* FileUtil.m */; };
+		73FF007F1BBFA28100486DDB /* LeanCloudHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00761BBFA28100486DDB /* LeanCloudHelper.m */; };
+		73FF00801BBFA28100486DDB /* LoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00781BBFA28100486DDB /* LoginHelper.m */; };
+		73FF00811BBFA28100486DDB /* RESTEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF007A1BBFA28100486DDB /* RESTEngine.m */; };
+		73FF00821BBFA28100486DDB /* SocialHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF007C1BBFA28100486DDB /* SocialHelper.m */; };
+		73FF008E1BBFA2AD00486DDB /* NSDate+yycon.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00851BBFA2AD00486DDB /* NSDate+yycon.m */; };
 		73FF008F1BBFA2AD00486DDB /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00871BBFA2AD00486DDB /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		73FF00901BBFA2AD00486DDB /* NSString+yycon.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00891BBFA2AD00486DDB /* NSString+yycon.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00911BBFA2AD00486DDB /* UIAlertView+yycon.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF008B1BBFA2AD00486DDB /* UIAlertView+yycon.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00921BBFA2AD00486DDB /* UIImageView+yycon.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF008D1BBFA2AD00486DDB /* UIImageView+yycon.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00A11BBFA2D100486DDB /* DonateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00941BBFA2D100486DDB /* DonateController.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00A21BBFA2D100486DDB /* JokeNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00961BBFA2D100486DDB /* JokeNavController.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00A31BBFA2D100486DDB /* LeftTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00981BBFA2D100486DDB /* LeftTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00A41BBFA2D100486DDB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF009A1BBFA2D100486DDB /* LoginViewController.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00A51BBFA2D100486DDB /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF009C1BBFA2D100486DDB /* MainTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00A61BBFA2D100486DDB /* ReactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF009E1BBFA2D100486DDB /* ReactViewController.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00A71BBFA2D100486DDB /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00A01BBFA2D100486DDB /* SettingsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00AB1BBFA31100486DDB /* ReactView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00AA1BBFA31100486DDB /* ReactView.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00B61BBFA35E00486DDB /* Joke.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00AF1BBFA35E00486DDB /* Joke.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00B71BBFA35E00486DDB /* JokeXmlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00B11BBFA35E00486DDB /* JokeXmlModel.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00B81BBFA35E00486DDB /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00B31BBFA35E00486DDB /* JSONModel.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00B91BBFA35E00486DDB /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00B51BBFA35E00486DDB /* XMLReader.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00BE1BBFA37D00486DDB /* JokeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00BB1BBFA37D00486DDB /* JokeCell.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00BF1BBFA37D00486DDB /* SmallImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00BD1BBFA37D00486DDB /* SmallImageCell.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00C21BBFA38A00486DDB /* AppCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00C11BBFA38A00486DDB /* AppCache.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00CC1BC149CD00486DDB /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00C51BC149CD00486DDB /* EGORefreshTableHeaderView.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00CD1BC149CD00486DDB /* PullDownUpRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00C71BC149CD00486DDB /* PullDownUpRefreshViewController.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00CE1BC149CD00486DDB /* PullToRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00C91BC149CD00486DDB /* PullToRefreshViewController.m */; settings = {ASSET_TAGS = (); }; };
-		73FF00CF1BC149CD00486DDB /* RefreshArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FF00CA1BC149CD00486DDB /* RefreshArrow.png */; settings = {ASSET_TAGS = (); }; };
-		73FF00D01BC149CD00486DDB /* RefreshArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FF00CB1BC149CD00486DDB /* RefreshArrow@2x.png */; settings = {ASSET_TAGS = (); }; };
+		73FF00901BBFA2AD00486DDB /* NSString+yycon.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00891BBFA2AD00486DDB /* NSString+yycon.m */; };
+		73FF00911BBFA2AD00486DDB /* UIAlertView+yycon.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF008B1BBFA2AD00486DDB /* UIAlertView+yycon.m */; };
+		73FF00921BBFA2AD00486DDB /* UIImageView+yycon.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF008D1BBFA2AD00486DDB /* UIImageView+yycon.m */; };
+		73FF00A11BBFA2D100486DDB /* DonateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00941BBFA2D100486DDB /* DonateController.m */; };
+		73FF00A21BBFA2D100486DDB /* JokeNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00961BBFA2D100486DDB /* JokeNavController.m */; };
+		73FF00A31BBFA2D100486DDB /* LeftTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00981BBFA2D100486DDB /* LeftTableViewController.m */; };
+		73FF00A41BBFA2D100486DDB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF009A1BBFA2D100486DDB /* LoginViewController.m */; };
+		73FF00A51BBFA2D100486DDB /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF009C1BBFA2D100486DDB /* MainTableViewController.m */; };
+		73FF00A61BBFA2D100486DDB /* ReactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF009E1BBFA2D100486DDB /* ReactViewController.m */; };
+		73FF00A71BBFA2D100486DDB /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00A01BBFA2D100486DDB /* SettingsTableViewController.m */; };
+		73FF00AB1BBFA31100486DDB /* ReactView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00AA1BBFA31100486DDB /* ReactView.m */; };
+		73FF00B61BBFA35E00486DDB /* Joke.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00AF1BBFA35E00486DDB /* Joke.m */; };
+		73FF00B71BBFA35E00486DDB /* JokeXmlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00B11BBFA35E00486DDB /* JokeXmlModel.m */; };
+		73FF00B81BBFA35E00486DDB /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00B31BBFA35E00486DDB /* JSONModel.m */; };
+		73FF00B91BBFA35E00486DDB /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00B51BBFA35E00486DDB /* XMLReader.m */; };
+		73FF00BE1BBFA37D00486DDB /* JokeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00BB1BBFA37D00486DDB /* JokeCell.m */; };
+		73FF00BF1BBFA37D00486DDB /* SmallImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00BD1BBFA37D00486DDB /* SmallImageCell.m */; };
+		73FF00C21BBFA38A00486DDB /* AppCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00C11BBFA38A00486DDB /* AppCache.m */; };
+		73FF00CC1BC149CD00486DDB /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00C51BC149CD00486DDB /* EGORefreshTableHeaderView.m */; };
+		73FF00CD1BC149CD00486DDB /* PullDownUpRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00C71BC149CD00486DDB /* PullDownUpRefreshViewController.m */; };
+		73FF00CE1BC149CD00486DDB /* PullToRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73FF00C91BC149CD00486DDB /* PullToRefreshViewController.m */; };
+		73FF00CF1BC149CD00486DDB /* RefreshArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FF00CA1BC149CD00486DDB /* RefreshArrow.png */; };
+		73FF00D01BC149CD00486DDB /* RefreshArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FF00CB1BC149CD00486DDB /* RefreshArrow@2x.png */; };
 		73FF00D21BC1501100486DDB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73FF00D11BC1501100486DDB /* SystemConfiguration.framework */; };
 		73FF00D41BC1509C00486DDB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 73FF00D31BC1509C00486DDB /* libz.tbd */; };
 		73FF00D61BC150B500486DDB /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 73FF00D51BC150B500486DDB /* libsqlite3.0.tbd */; };
@@ -66,6 +77,26 @@
 		7318295D1BC18A1D00E0E909 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		7318295F1BC27D2900E0E909 /* SmsCodeLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmsCodeLoginController.h; sourceTree = "<group>"; };
 		731829601BC27D2900E0E909 /* SmsCodeLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmsCodeLoginController.m; sourceTree = "<group>"; };
+		731829671BC7B3DB00E0E909 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		731829681BC7B3DB00E0E909 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		7318296B1BC7C2F200E0E909 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		7318296C1BC7C2F200E0E909 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		738AAD1D1C363F9F00121D14 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		738AAD1E1C363F9F00121D14 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		738AAD201C364FB200121D14 /* ReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportController.h; sourceTree = "<group>"; };
+		738AAD211C364FB200121D14 /* ReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportController.m; sourceTree = "<group>"; };
+		73A058E51BD374AF004634FC /* DetailJokeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailJokeCell.h; sourceTree = "<group>"; };
+		73A058E61BD374AF004634FC /* DetailJokeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailJokeCell.m; sourceTree = "<group>"; };
+		73A058E81BD37F6F004634FC /* NewCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCommentController.h; sourceTree = "<group>"; };
+		73A058E91BD37F6F004634FC /* NewCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCommentController.m; sourceTree = "<group>"; };
+		73A058EB1BD4B66F004634FC /* SocialShareDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialShareDelegate.h; sourceTree = "<group>"; };
+		73A058EC1BD4B66F004634FC /* SocialShareDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialShareDelegate.m; sourceTree = "<group>"; };
+		73A058EE1BD4EBD7004634FC /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
+		73A058EF1BD4EBD7004634FC /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
+		73A058F21BD5E444004634FC /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		73A058F31BD5E444004634FC /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		73A0AF511C44A55B0001C67B /* Game2048ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game2048ViewController.h; path = react/Game2048ViewController.h; sourceTree = "<group>"; };
+		73A0AF521C44A55B0001C67B /* Game2048ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game2048ViewController.m; path = react/Game2048ViewController.m; sourceTree = "<group>"; };
 		73BAC0451BBF9AC700FFA182 /* joke.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = joke.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73BAC0491BBF9AC700FFA182 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		73BAC04B1BBF9AC700FFA182 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -74,6 +105,10 @@
 		73BAC0541BBF9AC700FFA182 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73BAC0571BBF9AC700FFA182 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		73BAC0591BBF9AC700FFA182 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		73F768631BC9DF20001523A8 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		73F768641BC9DF20001523A8 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		73F768661BCAA0DF001523A8 /* DetailCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCommentCell.h; sourceTree = "<group>"; };
+		73F768671BCAA0DF001523A8 /* DetailCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCommentCell.m; sourceTree = "<group>"; };
 		73FF00711BBFA28100486DDB /* ColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorUtil.h; sourceTree = "<group>"; };
 		73FF00721BBFA28100486DDB /* ColorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorUtil.m; sourceTree = "<group>"; };
 		73FF00731BBFA28100486DDB /* FileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtil.h; sourceTree = "<group>"; };
@@ -138,8 +173,6 @@
 		73FF00D31BC1509C00486DDB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		73FF00D51BC150B500486DDB /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		73FF00D71BC150C500486DDB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		73FFFF771BBFA22200486DDB /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
-		73FFFF781BBFA22200486DDB /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		73FFFF7A1BBFA22200486DDB /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		73FFFF7B1BBFA22200486DDB /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
 		73FFFF7C1BBFA22200486DDB /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
@@ -167,7 +200,7 @@
 				73FF00D41BC1509C00486DDB /* libz.tbd in Frameworks */,
 				73FF00D21BC1501100486DDB /* SystemConfiguration.framework in Frameworks */,
 				AB8E2B8B05DE25B8990D3647 /* libPods.a in Frameworks */,
-				73FF005B1BBFA22200486DDB /* TencentOpenAPI.framework in Frameworks */,
+				73A058F41BD5E444004634FC /* TencentOpenAPI.framework in Frameworks */,
 				73FF005D1BBFA22200486DDB /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,8 +236,30 @@
 				73FF009A1BBFA2D100486DDB /* LoginViewController.m */,
 				7318295F1BC27D2900E0E909 /* SmsCodeLoginController.h */,
 				731829601BC27D2900E0E909 /* SmsCodeLoginController.m */,
+				731829671BC7B3DB00E0E909 /* RegisterViewController.h */,
+				731829681BC7B3DB00E0E909 /* RegisterViewController.m */,
 			);
 			name = login;
+			sourceTree = "<group>";
+		};
+		7318296A1BC7C2F200E0E909 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				7318296B1BC7C2F200E0E909 /* UIView+Toast.h */,
+				7318296C1BC7C2F200E0E909 /* UIView+Toast.m */,
+			);
+			name = Toast;
+			path = third/Toast;
+			sourceTree = "<group>";
+		};
+		73A058F11BD5E444004634FC /* iOS_OpenSDK_2.9.2_all */ = {
+			isa = PBXGroup;
+			children = (
+				73A058F21BD5E444004634FC /* TencentOpenAPI.framework */,
+				73A058F31BD5E444004634FC /* TencentOpenApi_IOS_Bundle.bundle */,
+			);
+			name = iOS_OpenSDK_2.9.2_all;
+			path = third/iOS_OpenSDK_2.9.2_all;
 			sourceTree = "<group>";
 		};
 		73BAC03C1BBF9AC700FFA182 = {
@@ -235,6 +290,8 @@
 				73FF006F1BBFA23500486DDB /* utils */,
 				73BAC04B1BBF9AC700FFA182 /* AppDelegate.h */,
 				73BAC04C1BBF9AC700FFA182 /* AppDelegate.m */,
+				738AAD1D1C363F9F00121D14 /* MainViewController.h */,
+				738AAD1E1C363F9F00121D14 /* MainViewController.m */,
 				73BAC0511BBF9AC700FFA182 /* Main.storyboard */,
 				73BAC0541BBF9AC700FFA182 /* Assets.xcassets */,
 				73BAC0561BBF9AC700FFA182 /* LaunchScreen.storyboard */,
@@ -274,6 +331,8 @@
 				73FF007A1BBFA28100486DDB /* RESTEngine.m */,
 				73FF007B1BBFA28100486DDB /* SocialHelper.h */,
 				73FF007C1BBFA28100486DDB /* SocialHelper.m */,
+				73A058EB1BD4B66F004634FC /* SocialShareDelegate.h */,
+				73A058EC1BD4B66F004634FC /* SocialShareDelegate.m */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -294,6 +353,14 @@
 				73FF009E1BBFA2D100486DDB /* ReactViewController.m */,
 				73FF009F1BBFA2D100486DDB /* SettingsTableViewController.h */,
 				73FF00A01BBFA2D100486DDB /* SettingsTableViewController.m */,
+				73F768631BC9DF20001523A8 /* DetailViewController.h */,
+				73F768641BC9DF20001523A8 /* DetailViewController.m */,
+				73A058E81BD37F6F004634FC /* NewCommentController.h */,
+				73A058E91BD37F6F004634FC /* NewCommentController.m */,
+				73A058EE1BD4EBD7004634FC /* FavoriteViewController.h */,
+				73A058EF1BD4EBD7004634FC /* FavoriteViewController.m */,
+				738AAD201C364FB200121D14 /* ReportController.h */,
+				738AAD211C364FB200121D14 /* ReportController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -320,6 +387,8 @@
 			children = (
 				73FF00A91BBFA31100486DDB /* ReactView.h */,
 				73FF00AA1BBFA31100486DDB /* ReactView.m */,
+				73A0AF511C44A55B0001C67B /* Game2048ViewController.h */,
+				73A0AF521C44A55B0001C67B /* Game2048ViewController.m */,
 			);
 			name = react;
 			sourceTree = "<group>";
@@ -329,6 +398,10 @@
 			children = (
 				73FF00BA1BBFA37D00486DDB /* JokeCell.h */,
 				73FF00BB1BBFA37D00486DDB /* JokeCell.m */,
+				73A058E51BD374AF004634FC /* DetailJokeCell.h */,
+				73A058E61BD374AF004634FC /* DetailJokeCell.m */,
+				73F768661BCAA0DF001523A8 /* DetailCommentCell.h */,
+				73F768671BCAA0DF001523A8 /* DetailCommentCell.m */,
 				73FF00BC1BBFA37D00486DDB /* SmallImageCell.h */,
 				73FF00BD1BBFA37D00486DDB /* SmallImageCell.m */,
 			);
@@ -367,23 +440,14 @@
 		73FFFDEB1BBFA20900486DDB /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				73A058F11BD5E444004634FC /* iOS_OpenSDK_2.9.2_all */,
+				7318296A1BC7C2F200E0E909 /* Toast */,
 				73FF00C31BC149CD00486DDB /* PullToRefresh */,
-				73FFFDEC1BBFA22100486DDB /* QQ_iOS_OpenSDK_2.9.0.91_all */,
 				73FFFF791BBFA22200486DDB /* WeChatSDK_1.6 */,
 				73FFFF7E1BBFA22200486DDB /* OLImageView */,
 				73FFFF851BBFA22200486DDB /* Reachability */,
 			);
 			name = Externals;
-			sourceTree = "<group>";
-		};
-		73FFFDEC1BBFA22100486DDB /* QQ_iOS_OpenSDK_2.9.0.91_all */ = {
-			isa = PBXGroup;
-			children = (
-				73FFFF771BBFA22200486DDB /* TencentOpenAPI.framework */,
-				73FFFF781BBFA22200486DDB /* TencentOpenApi_IOS_Bundle.bundle */,
-			);
-			name = QQ_iOS_OpenSDK_2.9.0.91_all;
-			path = third/QQ_iOS_OpenSDK_2.9.0.91_all;
 			sourceTree = "<group>";
 		};
 		73FFFF791BBFA22200486DDB /* WeChatSDK_1.6 */ = {
@@ -434,6 +498,8 @@
 				73BAC0421BBF9AC700FFA182 /* Frameworks */,
 				73BAC0431BBF9AC700FFA182 /* Resources */,
 				590B0A9AA3D4C50963A70A2A /* Copy Pods Resources */,
+				4440C2259E6AD3638820B1D5 /* Embed Pods Frameworks */,
+				738AAD231C36640E00121D14 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -484,9 +550,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73A058F51BD5E444004634FC /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				73FF00D01BC149CD00486DDB /* RefreshArrow@2x.png in Resources */,
 				731829581BC1894E00E0E909 /* InfoPlist.strings in Resources */,
-				73FF005C1BBFA22200486DDB /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				73FF005E1BBFA22200486DDB /* read_me.txt in Resources */,
 				73BAC0581BBF9AC700FFA182 /* LaunchScreen.storyboard in Resources */,
 				73FF00CF1BC149CD00486DDB /* RefreshArrow.png in Resources */,
@@ -498,6 +564,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4440C2259E6AD3638820B1D5 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		590B0A9AA3D4C50963A70A2A /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -512,6 +593,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		738AAD231C36640E00121D14 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n# Copyright 2014-2015 Bugly @Tencent. All rights reserved.\n#\n# V 1.1\n#\n################################################################################\n# 注意: 请配置下面的信息\n################################################################################\nBUGLY_APP_ID=\"900016009\"\nBUGLY_APP_KEY=\"HFdUusLfiH7VmNVI\"\nBUNDLE_IDENTIFIER=\"<YOUR_BUNDLE_ID>\"\n################################################################################\n# 自定义配置\n################################################################################\n# Debug模式编译是否上传，1＝上传 0＝不上传，默认不上传\nUPLOAD_DEBUG_SYMBOLS=0\n#\n# 模拟器编译是否上传，1=上传 0=不上传，默认不上传\nUPLOAD_SIMULATOR_SYMBOLS=0\n#\n# # 脚本默认配置的版本格式为CFBundleShortVersionString(CFBundleVersion),  如果你修改默认的版本格式, 请设置此变量, 如果不想修改, 请忽略此设置\n# CUSTOMIZED_APP_VERSION=\"\"\n#\n#\n#\n# This script will extract symbols from the .dSYM and generate .symbol file(Bugly supported) and upload to server.\n# You could visit http://bugly.qq.com to get more details about Bugly.\n#\n# Usage:\n#   * The instructions assume you have copyed this script into your project int Xcode.\n#   * Copy the \"buglySymbolIOS.jar\" file into the \"~/bin\" folder.\n#   * Open the project editor, select your build target.\n#   * Click \"Build Phases\" at the top of the project editor.\n#   * Click \"+\" button in the top left corner and select \"New Run Script Phase\".\n#   * Click \"Run Script\".\n#   * Paste the following script into the dark text box. You will have to uncomment the lines (remove the #) of course.\n#\n# --- SCRIPT BEGINS ON NEXT LINE, COPY AND EDIT FROM THERE ---\n#\n#\n#\n# --- END OF SCRIPT ---\n\n\n################################################################################\n# 注意: 如果你不知道此脚本的执行流程和用法，请不要随便修改！\n################################################################################\n\n# 退出执行并打印提示信息\nexitWithMessage() {\n    echo \"--------------------------------\"\n    echo -e \"${1}\"\n    echo \"--------------------------------\"\n    echo \"No upload and exit.\"\n    echo \"----------------------------------------------------------------\"\n    exit ${2}\n}\n\necho \"----------------------------------------------------------------\"\necho \"Copyright 2014-2015 Bugly @Tencent. All rights reserved.\"\n\necho \"This script will extract symbols from the .dSYM file and generate .symbol file(Bugly supported) and upload to server.\"\necho \"You could visit http://bugly.qq.com to get more details about Bugly.\"\necho \"----------------------------------------------------------------\"\n\necho \"Uploading dSYM to Bugly.\"\necho \"\"\n\n# Bugly服务域名\nDSYM_UPLOAD_DOMAIN=\"bugly.qq.com\"\n\n# 读取Info.plist文件中的版本信息\necho \"Info.Plist : ${INFOPLIST_FILE}\"\n\nBUNDLE_VERSION=$(/usr/libexec/PlistBuddy -c 'Print CFBundleVersion' \"${INFOPLIST_FILE}\")\nBUNDLE_SHORT_VERSION=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' \"${INFOPLIST_FILE}\")\n\n# 组装Bugly默认识别的版本信息(格式为CFBundleShortVersionString(CFBundleVersion), 例如: 1.0(1))\nif [ ! \"${CUSTOMIZED_APP_VERSION}\" ]; then\nBUGLY_APP_VERSION=\"${BUNDLE_SHORT_VERSION}(${BUNDLE_VERSION})\"\nelse\nBUGLY_APP_VERSION=\"${CUSTOMIZED_APP_VERSION}\"\nfi\n\n# Bugly符号提取工具路径, 请确保已经把对应的buglySymboliOS.jar拷贝到目录~/bin\nBUGLY_SYMBOL_JAR_PATH=\"$HOME/bin/buglySymboliOS.jar\"\n\necho \"--------------------------------\"\necho \"Step 1: Prepare application information.\"\necho \"--------------------------------\"\n\necho \"Product Name: ${PRODUCT_NAME}\"\necho \"Bundle Identifier: ${BUNDLE_IDENTIFIER}\"\necho \"Version: ${BUNDLE_SHORT_VERSION}\"\necho \"Build: ${BUNDLE_VERSION}\"\n\necho \"Bugly App ID: ${BUGLY_APP_ID}\"\necho \"Bugly App key: ${BUGLY_APP_KEY}\"\necho \"Bugly App Version: ${BUGLY_APP_VERSION}\"\n\necho \"--------------------------------\"\necho \"Step 2: Check the arguments ...\"\n\n# 检查模拟器编译是否允许上传符号\nif [ \"$EFFECTIVE_PLATFORM_NAME\" == \"-iphonesimulator\" ]; then\nif [ $UPLOAD_SIMULATOR_SYMBOLS -eq 0 ]; then\nexitWithMessage \"Warning: Build for simulator and skipping to upload. \\nYou can modify 'UPLOAD_SIMULATOR_SYMBOLS' to 1 in the script.\" 0\nfi\nfi\n\nif [ \"${CONFIGURATION=}\" == \"Debug\" ]; then\nif [ $UPLOAD_DEBUG_SYMBOLS -eq 0 ]; then\nexitWithMessage \"Warning: Build for debug mode and skipping to upload. \\nYou can modify 'UPLOAD_DEBUG_SYMBOLS' to 1 in the script.\" 0\nfi\nfi\n\n# 检查必须参数是否设置\nif [ ! \"${BUGLY_APP_ID}\" ]; then\nexitWithMessage \"Error: Bugly App ID not defined.\" 1\nfi\n\nif [ ! \"${BUGLY_APP_KEY}\" ]; then\nexitWithMessage \"Error: Bugly APP Key not defined.\" 1\nfi\n\nif [ ! \"${BUNDLE_IDENTIFIER}\" ]; then\nexitWithMessage \"Error: Bundle Identifier not defined.\" 1\nfi\n\nfunction uploadDSYM {\n    DSYM_SRC=\"$1\"\n    echo \".dSYM file: ${DSYM_SRC}\"\n    if [ ! -d \"$DSYM_SRC\" ]; then\n    exitWithMessage \"dSYM source not found: ${DSYM_SRC}\" 1\n    fi\n    DSYM_FILE_NAME=${DSYM_SRC##*/}\n        DSYM_SYMBOL_OUT_ZIP_NAME=\"${DSYM_FILE_NAME}.bSymbol.zip\"\n        # 替换空格\n        DSYM_SYMBOL_OUT_ZIP_NAME=\"${DSYM_SYMBOL_OUT_ZIP_NAME// /_}\"\n        DSYM_ZIP_FPATH=\"${BUILT_PRODUCTS_DIR}/${DSYM_SYMBOL_OUT_ZIP_NAME}\"\n        \n        DSYM_SYMBOL_BACKUP_DIR=${BUILD_DIR}/Symbols\n        \n        if [ ! -e \"${DSYM_SYMBOL_BACKUP_DIR}\" ]; then\n        mkdir ${DSYM_SYMBOL_BACKUP_DIR}\n        fi\n        \n        # 备份并清理\n        find ${BUILT_PRODUCTS_DIR} -name \"*.zip\" -print0 | xargs -0 -I {} mv {} ${DSYM_SYMBOL_BACKUP_DIR}\n        /bin/rm -rf \"${BUILT_PRODUCTS_DIR}/*.zip\"\n        \n        echo \"Extract symbols from dSYM to ${DSYM_ZIP_FPATH}.\"\n        \n        echo \"--------------------------------\"\n        (/usr/bin/java -jar \"${BUGLY_SYMBOL_JAR_PATH}\" -i \"${DSYM_SRC}\" -o \"${DSYM_ZIP_FPATH}\" ) || exitWithMessage \"Error: Failed to extract symbols.\" 1\n        echo \"--------------------------------\"\n        \n        if [ ! -e \"${DSYM_ZIP_FPATH}\" ]; then\n        DSYM_SYMBOL_OUT_ZIP_NAME=$(ls ${BUILT_PRODUCTS_DIR} | grep \".zip\")\n        DSYM_ZIP_FPATH=\"${BUILT_PRODUCTS_DIR}/${DSYM_SYMBOL_OUT_ZIP_NAME}\"\n        DSYM_SYMBOL_OUT_ZIP_NAME=${DSYM_SYMBOL_OUT_ZIP_NAME//&/_}\n            fi\n            \n            if [ ! -e \"${DSYM_ZIP_FPATH}\" ] ; then\n            exitWithMessage \"no symbol file zip archive generated: ${DSYM_ZIP_FPATH}\" 1\n            fi\n            \n            # 提取符号信息\n            echo \"--------------------------------\"\n            echo \"Step 3: Extract symbol info from .dSYM file.\"\n            \n            if [ ! -e \"$BUGLY_SYMBOL_JAR_PATH\" ]; then\n            exitWithMessage \"Error: Jar file '${BUGLY_SYMBOL_JAR_PATH}' was not found. \\nPlease copy the jar file into ~/bin folder.\" 1\n            fi\n            \n            echo \"Step 4: Upload the symbols of dSYM.\"\n            echo \"--------------------------------\"\n            echo \"zip : ${DSYM_SYMBOL_OUT_ZIP_NAME}\"\n            echo \"dir : ${DSYM_ZIP_FPATH}\"\n            \n            echo \"dSYM upload domain: ${DSYM_UPLOAD_DOMAIN}\"\n            DSYM_UPLOAD_URL=\"http://${DSYM_UPLOAD_DOMAIN}/upload/dsym?app=${BUGLY_APP_ID}&pid=2&ver=${BUGLY_APP_VERSION}&n=${DSYM_SYMBOL_OUT_ZIP_NAME}&key=${BUGLY_APP_KEY}&bid=${BUNDLE_IDENTIFIER}\"\n            echo \"dSYM upload url: ${DSYM_UPLOAD_URL}\"\n            \n            # Upload dSYM to Bugly\n            echo \"curl --header \"Content-Type:application/zip\" --data-binary \"@${DSYM_ZIP_FPATH}\" \"${DSYM_UPLOAD_URL}\" --verbose\"\n            \n            echo \"--------------------------------\"\n            STATUS=$(/usr/bin/curl --header \"Content-Type:application/zip\" --data-binary \"@${DSYM_ZIP_FPATH}\" \"${DSYM_UPLOAD_URL}\" --verbose)\n            echo \"--------------------------------\"\n            \n            UPLOAD_RESULT=\"FAILTURE\"\n            echo \"Bugly server response: ${STATUS}\"\n            if [ ! \"${STATUS}\" ]; then\n            echo \"Error: Failed to upload the zip archive file.\"\n            elif [[ \"${STATUS}\" == *\":true\"* ]]; then\n            echo \"Success to upload the dSYM for the app [${BUNDLE_IDENTIFIER} ${BUGLY_APP_VERSION}]\"\n            UPLOAD_RESULT=\"SUCCESS\"\n            else\n            echo \"Error: Failed to upload the zip archive file to Bugly.\"\n            fi\n            \n            #Remove temp dSYM archive\n            echo \"Remove temporary zip archive: ${DSYM_ZIP_FPATH}\"\n            #/bin/rm -f \"${DSYM_ZIP_FPATH}\"\n            \n            if [ \"$?\" -ne 0 ]; then\n            exitWithMessage \"Error: Failed to remove temporary zip archive.\" 1\n            fi\n            \n            echo \"--------------------------------\"\n            echo \"${UPLOAD_RESULT} - dSYM upload complete.\"\n            \n            if [[ \"${UPLOAD_RESULT}\" == \"FAILTURE\" ]]; then\n            echo \"--------------------------------\"\n            echo \"Failed to upload the dSYM\"\n            echo \"Please check the script and try it again.\"\n            fi\n            \n            echo \"----------------------------------------------------------------\"\n        }\n        \n        # .dSYM文件信息\n        \n        echo \"DSYM FOLDER ${DWARF_DSYM_FOLDER_PATH}\"\n        \n        DSYM_FOLDER=\"${DWARF_DSYM_FOLDER_PATH}\"\n        \n        IFS=$'\\n'\n        \n        for dsymFile in $(find \"$DSYM_FOLDER\" -name '*.dSYM'); do\n        echo \"Found dSYM file: $dsymFile\"\n        uploadDSYM $dsymFile\n        done\n        \n";
 		};
 		CA032E5C979F01C54CCBBBAA /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -537,6 +631,8 @@
 			files = (
 				73FF00B81BBFA35E00486DDB /* JSONModel.m in Sources */,
 				73FF00901BBFA2AD00486DDB /* NSString+yycon.m in Sources */,
+				731829691BC7B3DB00E0E909 /* RegisterViewController.m in Sources */,
+				73A058ED1BD4B66F004634FC /* SocialShareDelegate.m in Sources */,
 				73FF00CC1BC149CD00486DDB /* EGORefreshTableHeaderView.m in Sources */,
 				73FF00CD1BC149CD00486DDB /* PullDownUpRefreshViewController.m in Sources */,
 				73FF00A11BBFA2D100486DDB /* DonateController.m in Sources */,
@@ -546,9 +642,11 @@
 				73FF00611BBFA22200486DDB /* OLImageView.m in Sources */,
 				73FF00BE1BBFA37D00486DDB /* JokeCell.m in Sources */,
 				73FF005F1BBFA22200486DDB /* AFImageResponseSerializer+OLImage.m in Sources */,
+				738AAD1F1C363F9F00121D14 /* MainViewController.m in Sources */,
 				73FF00A21BBFA2D100486DDB /* JokeNavController.m in Sources */,
 				73FF00911BBFA2AD00486DDB /* UIAlertView+yycon.m in Sources */,
 				73FF00A61BBFA2D100486DDB /* ReactViewController.m in Sources */,
+				73F768651BC9DF20001523A8 /* DetailViewController.m in Sources */,
 				73FF00601BBFA22200486DDB /* OLImage.m in Sources */,
 				73FF00801BBFA28100486DDB /* LoginHelper.m in Sources */,
 				73FF007E1BBFA28100486DDB /* FileUtil.m in Sources */,
@@ -556,10 +654,15 @@
 				73FF00A71BBFA2D100486DDB /* SettingsTableViewController.m in Sources */,
 				73FF00BF1BBFA37D00486DDB /* SmallImageCell.m in Sources */,
 				73FF007F1BBFA28100486DDB /* LeanCloudHelper.m in Sources */,
+				73A058E71BD374AF004634FC /* DetailJokeCell.m in Sources */,
 				73FF007D1BBFA28100486DDB /* ColorUtil.m in Sources */,
 				73FF00B91BBFA35E00486DDB /* XMLReader.m in Sources */,
 				73FF00AB1BBFA31100486DDB /* ReactView.m in Sources */,
+				73F768681BCAA0DF001523A8 /* DetailCommentCell.m in Sources */,
 				73FF00A51BBFA2D100486DDB /* MainTableViewController.m in Sources */,
+				73A0AF531C44A55B0001C67B /* Game2048ViewController.m in Sources */,
+				73A058F01BD4EBD7004634FC /* FavoriteViewController.m in Sources */,
+				7318296D1BC7C2F200E0E909 /* UIView+Toast.m in Sources */,
 				73BAC04D1BBF9AC700FFA182 /* AppDelegate.m in Sources */,
 				73BAC04A1BBF9AC700FFA182 /* main.m in Sources */,
 				73FF00CE1BC149CD00486DDB /* PullToRefreshViewController.m in Sources */,
@@ -570,6 +673,8 @@
 				73FF008F1BBFA2AD00486DDB /* NSString+HTML.m in Sources */,
 				73FF00B71BBFA35E00486DDB /* JokeXmlModel.m in Sources */,
 				731829611BC27D2900E0E909 /* SmsCodeLoginController.m in Sources */,
+				738AAD221C364FB200121D14 /* ReportController.m in Sources */,
+				73A058EA1BD37F6F004634FC /* NewCommentController.m in Sources */,
 				73FF00621BBFA22200486DDB /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -693,11 +798,33 @@
 			baseConfigurationReference = 89029FF921BE09D06F342FF8 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/third/QQ_iOS_OpenSDK_2.9.0.91_all",
+					"$(PROJECT_DIR)/third/iOS_OpenSDK_2.9.2_all",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/AVOSCloud\"",
+					"\"${PODS_ROOT}/Headers/Public/AVOSCloudCrashReporting\"",
+					"\"${PODS_ROOT}/Headers/Public/AVOSCloudIM\"",
+					"\"${PODS_ROOT}/Headers/Public/DACircularProgress\"",
+					"\"${PODS_ROOT}/Headers/Public/EGYWebViewController\"",
+					"\"${PODS_ROOT}/Headers/Public/LeanCloudSocial\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MCFireworksButton\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/MMDrawerController\"",
+					"\"${PODS_ROOT}/Headers/Public/MWPhotoBrowser\"",
+					"\"${PODS_ROOT}/Headers/Public/React\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SVProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/React/React/Base\"",
 				);
 				INFOPLIST_FILE = joke/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -708,6 +835,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yycon.joke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -716,11 +844,33 @@
 			baseConfigurationReference = 8DDCA1EF95F5E82B093307EA /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/third/QQ_iOS_OpenSDK_2.9.0.91_all",
+					"$(PROJECT_DIR)/third/iOS_OpenSDK_2.9.2_all",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/AVOSCloud\"",
+					"\"${PODS_ROOT}/Headers/Public/AVOSCloudCrashReporting\"",
+					"\"${PODS_ROOT}/Headers/Public/AVOSCloudIM\"",
+					"\"${PODS_ROOT}/Headers/Public/DACircularProgress\"",
+					"\"${PODS_ROOT}/Headers/Public/EGYWebViewController\"",
+					"\"${PODS_ROOT}/Headers/Public/LeanCloudSocial\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MCFireworksButton\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/MMDrawerController\"",
+					"\"${PODS_ROOT}/Headers/Public/MWPhotoBrowser\"",
+					"\"${PODS_ROOT}/Headers/Public/React\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SVProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/React/React/Base\"",
 				);
 				INFOPLIST_FILE = joke/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -731,6 +881,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yycon.joke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

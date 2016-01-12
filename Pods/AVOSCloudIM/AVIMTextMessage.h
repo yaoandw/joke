@@ -8,6 +8,9 @@
 
 #import "AVIMTypedMessage.h"
 
+/**
+ *  Text Message.
+ */
 @interface AVIMTextMessage : AVIMTypedMessage <AVIMTypedMessageSubclassing>
 
 /*!

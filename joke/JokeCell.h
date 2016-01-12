@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Joke.h"
+#import "AVObject.h"
 #import "OLImageView.h"
 #import "OLImage.h"
 #import "MCFireworksButton.h"
+@class JokeCell;
+@protocol JokeCellDelegate <NSObject>
+
+-(void)jokeCell:(JokeCell*)jokeCell joke:(AVObject*)joke supported:(BOOL)supported;
+-(void)jokeCell:(JokeCell*)jokeCell joke:(AVObject*)joke favorited:(BOOL)favorited;
+-(void)jokeCell:(JokeCell *)jokeCell commentButtonTappedOfjoke:(AVObject *)joke;
+
+@end
 
 @interface JokeCell : UITableViewCell<UIActionSheetDelegate>
 
@@ -31,8 +39,10 @@
 @property(nonatomic,strong)UIView *panelView;
 
 @property(nonatomic,weak)UIViewController *parentViewController;
-@property(nonatomic,strong)Joke *joke;
+@property(nonatomic,strong)AVObject *joke;
 
--(void)setJokeCell:(Joke*)joke parentViewController:(UIViewController*)parentViewController;
-+(CGFloat)calJokeCellHeight:(Joke*)joke parentViewController:(UIViewController*)parentViewController;
+@property(nonatomic,assign)id delegate;
+
+-(void)setJokeCell:(AVObject*)joke parentViewController:(UIViewController*)parentViewController;
++(CGFloat)calJokeCellHeight:(AVObject*)joke;
 @end

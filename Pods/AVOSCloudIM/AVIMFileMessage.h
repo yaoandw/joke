@@ -8,6 +8,9 @@
 
 #import <AVOSCloudIM/AVOSCloudIM.h>
 
+/**
+ *  文件消息类
+ */
 @interface AVIMFileMessage : AVIMTypedMessage <AVIMTypedMessageSubclassing>
 
 @end

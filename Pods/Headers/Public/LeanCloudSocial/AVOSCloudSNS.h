@@ -1,1 +1,1 @@
-../../../LeanCloudSocial/LeanCloudSocial/AVOSCloudSNS.h
+../../../LeanCloudSocial/Classes/AVOSCloudSNS.h

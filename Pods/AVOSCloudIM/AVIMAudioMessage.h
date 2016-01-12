@@ -8,9 +8,18 @@
 
 #import "AVIMTypedMessage.h"
 
+/**
+ *  Audio Message. Can be created by the audio's file path.
+ */
 @interface AVIMAudioMessage : AVIMTypedMessage <AVIMTypedMessageSubclassing>
-@property(nonatomic, readonly)uint64_t size;  //文件大小，单位：字节
-@property(nonatomic, readonly)float duration; //时长，单位：秒
-@property(nonatomic, strong, readonly)NSString *format;  //格式，如：mp3，aac等
+
+/// File size in bytes.
+@property(nonatomic, readonly)uint64_t size;
+
+/// Audio's duration in seconds.
+@property(nonatomic, readonly)float duration;
+
+/// Audio format, mp3, aac, etc. Simply get it by the file extension.
+@property(nonatomic, strong, readonly)NSString *format;
 
 @end

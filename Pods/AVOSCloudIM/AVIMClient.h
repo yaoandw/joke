@@ -17,27 +17,72 @@
 @protocol AVIMClientDelegate;
 
 typedef NS_ENUM(NSUInteger, AVIMClientStatus) {
+    /// Initial client status.
     AVIMClientStatusNone,
+    /// Indicate the client is connecting the server now.
     AVIMClientStatusOpening,
+    /// Indicate the client connected the server.
     AVIMClientStatusOpened,
+    /// Indicate the connection paused. Usually for the network reason.
     AVIMClientStatusPaused,
+    /// Indicate the connection is recovering.
     AVIMClientStatusResuming,
+    /// Indicate the connection is closing.
     AVIMClientStatusClosing,
+    /// Indicate the connection is closed.
     AVIMClientStatusClosed
 };
 
 typedef NS_OPTIONS(uint64_t, AVIMConversationOption) {
+    /// Default conversation. At most allow 500 people to join the conversation.
     AVIMConversationOptionNone      = 0,
+    /// Transient conversation. No headcount limits. But the functionality is limited. No offline messages, no offline notifications, etc.
     AVIMConversationOptionTransient = 1 << 0,
+    /// Unique conversation. If the server detects the conversation with that members exists, will return it instead of creating a new one.
     AVIMConversationOptionUnique    = 1 << 1,
 };
 
+
 @interface AVIMClient : NSObject
 
+/**
+ *  The delegate which implements AVIMClientDelegate protocol. It handles these events: connecting status changes, message coming and members of the conversation changes.
+ */
 @property (nonatomic, weak) id<AVIMClientDelegate> delegate;
+
+/**
+ *  The delegate which implements AVIMSignatureDataSource protocol. It is used to fetching signature from your server, and return an AVIMSignature object.
+ */
 @property (nonatomic, weak) id<AVIMSignatureDataSource> signatureDataSource;
+
+/**
+ *  The ID of the current client. Usually the user's ID.
+ */
 @property (nonatomic, readonly, copy) NSString *clientId;
+
+/**
+ *  The connecting status of the current client.
+ */
 @property (nonatomic, readonly, assign) AVIMClientStatus status;
+@property (nonatomic, readonly, copy) NSString *tag;
+
+/**
+ * 控制是否打开历史消息查询的本地缓存功能,默认开启
+ */
+@property (nonatomic, assign) BOOL messageQueryCacheEnabled;
+
+/*!
+ Initializes a newly allocated client.
+ @param clientId Identifier of client, nonnull requierd.
+ */
+- (instancetype)initWithClientId:(NSString *)clientId;
+
+/*!
+ Initializes a newly allocated client.
+ @param clientId Identifier of client, nonnull requierd.
+ @param tag      Tag of client.
+ */
+- (instancetype)initWithClientId:(NSString *)clientId tag:(NSString *)tag;
 
 /*!
  默认 AVIMClient 实例
@@ -66,11 +111,29 @@ typedef NS_OPTIONS(uint64_t, AVIMConversationOption) {
 
 /*!
  开启某个账户的聊天
+ @param callback － 聊天开启之后的回调
+ @return None.
+ */
+- (void)openWithCallback:(AVIMBooleanResultBlock)callback;
+
+/*!
+ 开启某个账户的聊天
  @param clientId - 操作发起人的 id，以后使用该账户的所有聊天行为，都由此人发起。
  @param callback － 聊天开启之后的回调
  @return None.
  */
 - (void)openWithClientId:(NSString *)clientId
+                callback:(AVIMBooleanResultBlock)callback;
+
+/*!
+ * 开启某个账户的聊天。
+ * @param clientId 操作发起人的 id，以后使用该账户的所有聊天行为，都由此人发起。
+ * @param callback 聊天开启之后的回调。
+ * @param tag 单点登录的 tag，如果为 nil 或 "default" 表示允许多点登录，否则会把当前在线的且 tag 相同的其他设备踢下线。
+ * @return None.
+ */
+- (void)openWithClientId:(NSString *)clientId
+                     tag:(NSString *)tag
                 callback:(AVIMBooleanResultBlock)callback;
 
 /*!
@@ -131,27 +194,35 @@ typedef NS_OPTIONS(uint64_t, AVIMConversationOption) {
 
 @end
 
+/**
+ *  The AVIMClientDelegate protocol defines methods to handle these events: connecting status changes, message comes and members of the conversation changes.
+ */
 @protocol AVIMClientDelegate <NSObject>
 @optional
 
-/*!
- 当前聊天状态被暂停，常见于网络断开时触发。
+/**
+ *  当前聊天状态被暂停，常见于网络断开时触发。
+ *  @param imClient 相应的 imClient
  */
 - (void)imClientPaused:(AVIMClient *)imClient;
 
-/*!
- 当前聊天状态被暂停，常见于网络断开时触发，error 包含暂停的错误信息。
- 注意：该回调会覆盖 imClientPaused: 方法。
+/**
+ *  当前聊天状态被暂停，常见于网络断开时触发。
+ *  注意：该回调会覆盖 imClientPaused: 方法。
+ *  @param imClient 相应的 imClient
+ *  @param error    具体错误信息
  */
 - (void)imClientPaused:(AVIMClient *)imClient error:(NSError *)error;
 
-/*!
- 当前聊天状态开始恢复，常见于网络断开后开始重新连接。
+/**
+ *  当前聊天状态开始恢复，常见于网络断开后开始重新连接。
+ *  @param imClient 相应的 imClient
  */
 - (void)imClientResuming:(AVIMClient *)imClient;
 
-/*!
- 当前聊天状态已经恢复，常见于网络断开后重新连接上。
+/**
+ *  当前聊天状态已经恢复，常见于网络断开后重新连接上。
+ *  @param imClient 相应的 imClient
  */
 - (void)imClientResumed:(AVIMClient *)imClient;
 
@@ -159,7 +230,6 @@ typedef NS_OPTIONS(uint64_t, AVIMConversationOption) {
  接收到新的普通消息。
  @param conversation － 所属对话
  @param message - 具体的消息
- @return None.
  */
 - (void)conversation:(AVIMConversation *)conversation didReceiveCommonMessage:(AVIMMessage *)message;
 
@@ -167,7 +237,6 @@ typedef NS_OPTIONS(uint64_t, AVIMConversationOption) {
  接收到新的富媒体消息。
  @param conversation － 所属对话
  @param message - 具体的消息
- @return None.
  */
 - (void)conversation:(AVIMConversation *)conversation didReceiveTypedMessage:(AVIMTypedMessage *)message;
 
@@ -175,48 +244,51 @@ typedef NS_OPTIONS(uint64_t, AVIMConversationOption) {
  消息已投递给对方。
  @param conversation － 所属对话
  @param message - 具体的消息
- @return None.
  */
 - (void)conversation:(AVIMConversation *)conversation messageDelivered:(AVIMMessage *)message;
 
 /*!
- 对话中有新成员加入的通知。
+ 对话中有新成员加入时所有成员都会收到这一通知。
  @param conversation － 所属对话
  @param clientIds - 加入的新成员列表
  @param clientId - 邀请者的 id
- @return None.
  */
 - (void)conversation:(AVIMConversation *)conversation membersAdded:(NSArray *)clientIds byClientId:(NSString *)clientId;
+
 /*!
- 对话中有成员离开的通知。
+ 对话中有成员离开时所有剩余成员都会收到这一通知。
  @param conversation － 所属对话
  @param clientIds - 离开的成员列表
  @param clientId - 操作者的 id
- @return None.
  */
 - (void)conversation:(AVIMConversation *)conversation membersRemoved:(NSArray *)clientIds byClientId:(NSString *)clientId;
 
 /*!
- 被邀请加入对话的通知。
+ 当前用户被邀请加入对话的通知。
  @param conversation － 所属对话
  @param clientId - 邀请者的 id
- @return None.
  */
 - (void)conversation:(AVIMConversation *)conversation invitedByClientId:(NSString *)clientId;
 
 /*!
- 从对话中被移除的通知。
+ 当前用户被踢出对话的通知。
  @param conversation － 所属对话
  @param clientId - 操作者的 id
- @return None.
  */
 - (void)conversation:(AVIMConversation *)conversation kickedByClientId:(NSString *)clientId;
 
-/*
- 收到未读通知。
+/*!
+  收到未读通知。在该终端上线的时候，服务器会将对话的未读数发送过来。未读数可通过 -[AVIMConversation markAsReadInBackground] 清零，服务端不会自动清零。
  @param conversation 所属会话。
  @param unread 未读消息数量。
  */
 - (void)conversation:(AVIMConversation *)conversation didReceiveUnread:(NSInteger)unread;
+
+/*!
+ 客户端下线通知。
+ @param client 已下线的 client。
+ @param error 错误信息。
+ */
+- (void)client:(AVIMClient *)client didOfflineWithError:(NSError *)error;
 
 @end

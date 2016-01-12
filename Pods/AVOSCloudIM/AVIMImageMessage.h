@@ -8,10 +8,21 @@
 
 #import "AVIMTypedMessage.h"
 
+/**
+ *  Image Message. Can be created by the image's file path.
+ */
 @interface AVIMImageMessage : AVIMTypedMessage <AVIMTypedMessageSubclassing>
-@property(nonatomic, readonly)uint width;  //宽度，单位：像素
-@property(nonatomic, readonly)uint height;  //高度，单位：像素
-@property(nonatomic, readonly)uint64_t size;  //文件大小，单位：字节
-@property(nonatomic, strong, readonly)NSString *format;  //格式，如：png，jpg等
+
+/// Width of the image in pixels.
+@property(nonatomic, readonly)uint width;
+
+/// Height of the image in pixels.
+@property(nonatomic, readonly)uint height;
+
+/// File size in bytes.
+@property(nonatomic, readonly)uint64_t size;
+
+/// Image format, png, jpg, etc. Simply get it from the file extension.
+@property(nonatomic, strong, readonly)NSString *format;
 
 @end

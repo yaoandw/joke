@@ -7,8 +7,6 @@
 //
 
 #import "SettingsTableViewController.h"
-#import "UIViewController+MMDrawerController.h"
-#import "MMDrawerBarButtonItem.h"
 #import "SmallImageCell.h"
 #import "FileUtil.h"
 #import <AVOSCloud/AVUser.h>
@@ -45,12 +43,14 @@
 }
 #pragma mark leftButton
 -(void)setupLeftMenuButton{
-    MMDrawerBarButtonItem * leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(leftDrawerButtonPress:)];
-    [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
+    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    [leftButton setImage:[UIImage imageNamed:@"menu_icon"] forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(leftButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:leftButton] animated:YES];
 }
 #pragma mark - Button Handlers
--(void)leftDrawerButtonPress:(id)sender{
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+-(void)leftButtonTapped:(id)sender{
+    [kMainViewController showLeftViewAnimated:YES completionHandler:nil];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -63,14 +63,14 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
     if (section == 0) {
-        return 4;
+        return 3;
     }else if (section == 1){
         return 1;
     }

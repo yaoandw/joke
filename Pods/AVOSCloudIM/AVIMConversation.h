@@ -16,33 +16,82 @@
 
 typedef uint64_t AVIMMessageSendOption;
 enum : AVIMMessageSendOption {
+    /// Default message.
     AVIMMessageSendOptionNone = 0,
+    /// Transient message. Not saved in the sever. Discard if the receiver is offline.
     AVIMMessageSendOptionTransient = 1 << 0,
+    /// When receiver receives the message, in sender part, -[AVIMClientDelegate conversation:messageDelivered:] will be called.
     AVIMMessageSendOptionRequestReceipt = 1 << 1,
 };
 
 @interface AVIMConversation : NSObject
 
-@property (nonatomic, strong, readonly) NSString     *conversationId; // 对话 id
-@property (nonatomic, strong, readonly) NSString     *creator;        // 创建者 id
-@property (nonatomic, strong, readonly) NSDate       *createAt;       // 创建时间
-@property (nonatomic, strong, readonly) NSDate       *updateAt;       // 最后更新时间
-@property (nonatomic, strong, readonly) NSDate       *lastMessageAt;  // 对话中最后一条消息的发送时间
-@property (nonatomic, strong, readonly) NSString     *name;           // 对话名字
-@property (nonatomic, strong, readonly) NSArray      *members;        // 对话参与者列表
-@property (nonatomic, strong, readonly) NSDictionary *attributes;     // 自定义属性
-@property (nonatomic, assign, readonly) BOOL          transient;      // 是否为临时会话（开放群组）
-@property (nonatomic, assign, readonly) BOOL          muted;          // 静音状态
-@property (nonatomic, weak, readonly)   AVIMClient   *imClient;       // 所属的 client
+/**
+ *  The ID of the conversation.
+ */
+@property (nonatomic, strong, readonly) NSString     *conversationId;
+
+/**
+ *  The clientId of the conversation creator.
+ */
+@property (nonatomic, strong, readonly) NSString     *creator;
+
+/**
+ *  The creation time of the conversation.
+ */
+@property (nonatomic, strong, readonly) NSDate       *createAt;
+
+/**
+ *  The last updating time of the conversation. When fields like name, members changes, this time will changes.
+ */
+@property (nonatomic, strong, readonly) NSDate       *updateAt;
+
+/**
+ *  The send timestamp of the last message in this conversation.
+ */
+@property (nonatomic, strong, readonly) NSDate       *lastMessageAt;
+
+/**
+ *  The name of this conversation. Can be changed by update:callback: .
+ */
+@property (nonatomic, strong, readonly) NSString     *name;
+
+/**
+ *  The ids of the clients who join the conversation. Can be changed by addMembersWithClientIds:callback: or removeMembersWithClientIds:callback: .
+ */
+@property (nonatomic, strong, readonly) NSArray      *members;
+
+/**
+ *  The attributes of the conversation. Intend to save any extra data of the conversation.
+ *  Can be set when creating the conversation or can be updated by update:callback: .
+ */
+@property (nonatomic, strong, readonly) NSDictionary *attributes;
+
+/**
+ *  Indicate whether it is a transient conversation. 
+ *  @see AVIMConversationOptionTransient
+ */
+@property (nonatomic, assign, readonly) BOOL          transient;
+
+/**
+ *  Muting status. If muted, when you have offline messages, will not receive Apple APNS notification.
+ *  Can be changed by muteWithCallback: or unmuteWithCallback:.
+ */
+@property (nonatomic, assign, readonly) BOOL          muted;
+
+/**
+ *  The AVIMClient object which this conversation belongs to.
+ */
+@property (nonatomic, weak, readonly)   AVIMClient   *imClient;
 
 /*!
- 生成一个新的 AVIMConversationUpdateBuilder 实例。
+ 生成一个新的 AVIMConversationUpdateBuilder 实例。用于更新对话。
  @return 新的 AVIMConversationUpdateBuilder 实例.
  */
 - (AVIMConversationUpdateBuilder *)newUpdateBuilder;
 
 /*!
- 创建一个 AVIMKeyedConversation 对象。
+ 创建一个 AVIMKeyedConversation 对象。用于序列化，方便保存在本地。
  @return AVIMKeyedConversation 对象。
  */
 - (AVIMKeyedConversation *)keyedConversation;
@@ -139,7 +188,7 @@ enum : AVIMMessageSendOption {
  @return None.
  */
 - (void)sendMessage:(AVIMMessage *)message
-      progressBlock:(AVProgressBlock)progressBlock
+      progressBlock:(AVIMProgressBlock)progressBlock
            callback:(AVIMBooleanResultBlock)callback;
 
 /*!
@@ -163,7 +212,7 @@ enum : AVIMMessageSendOption {
  */
 - (void)sendMessage:(AVIMMessage *)message
             options:(AVIMMessageSendOption)options
-      progressBlock:(AVProgressBlock)progressBlock
+      progressBlock:(AVIMProgressBlock)progressBlock
            callback:(AVIMBooleanResultBlock)callback;
 
 /*!

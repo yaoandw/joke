@@ -1,1 +1,1 @@
-../../../LeanCloudSocial/LeanCloudSocial/AVSNSWebViewController.h
+../../../LeanCloudSocial/Classes/AVSNSWebViewController.h

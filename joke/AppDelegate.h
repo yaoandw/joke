@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MainViewController.h"
 #define MyAppDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
+#define kMainViewController                            (MainViewController *)[UIApplication sharedApplication].delegate.window.rootViewController
+#define kNavigationController (UINavigationController *)[(MainViewController *)[UIApplication sharedApplication].delegate.window.rootViewController rootViewController]
 
 #define yycon_request_timeout 20
 
@@ -48,12 +51,13 @@
 
 #define YYCON_CACHE_IMAGE_AFNETWORKING @"af_YyconImages"
 
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property(nonatomic,assign)BOOL fromLaunch_jokeRefreshed;
 @property(nonatomic,assign)BOOL fromLaunch_richJokeRefreshed;
-
+@property(nonatomic,assign)BOOL hasLoginedWhenRunning;//标示运行过程中是否登陆过,因为leancloud有个bug:运行过程中登陆后,取消support或者取消收藏,会crash
 @end
 

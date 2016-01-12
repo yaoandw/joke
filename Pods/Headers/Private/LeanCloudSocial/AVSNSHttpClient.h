@@ -1,1 +1,1 @@
-../../../LeanCloudSocial/LeanCloudSocial/AVSNSHttpClient.h
+../../../LeanCloudSocial/Classes/AVSNSHttpClient.h

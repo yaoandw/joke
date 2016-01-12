@@ -8,9 +8,18 @@
 
 #import "AVIMTypedMessage.h"
 
+/**
+ *  Video Message.
+ */
 @interface AVIMVideoMessage : AVIMTypedMessage <AVIMTypedMessageSubclassing>
-@property(nonatomic, readonly)uint64_t size;  //文件大小，单位：字节
-@property(nonatomic, readonly)float duration;  //时长，单位：秒
-@property(nonatomic, strong, readonly)NSString *format;  //格式，如：mp4，m4v等
+
+/// File size in bytes.
+@property(nonatomic, readonly)uint64_t size;
+
+/// Duration of the video in seconds.
+@property(nonatomic, readonly)float duration;
+
+/// Video format, mp4, m4v, etc. Simply get it from the file extension.
+@property(nonatomic, strong, readonly)NSString *format;
 
 @end

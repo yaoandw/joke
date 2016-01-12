@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReactViewController : UIViewController
+@interface ReactViewController : UITableViewController
 
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoginViewController.h"
 
-@interface SmsCodeLoginController : UIViewController
-
+@interface SmsCodeLoginController : UITableViewController
+-(id)initWithLoginName:(NSString*)loginName loginViewController:(LoginViewController*)loginViewController;
 @end

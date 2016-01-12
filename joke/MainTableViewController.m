@@ -7,8 +7,6 @@
 //
 
 #import "MainTableViewController.h"
-#import "MMDrawerBarButtonItem.h"
-#import "UIViewController+MMDrawerController.h"
 #import "RESTEngine.h"
 #import "UIAlertView+yycon.h"
 #import "AFHTTPRequestOperation.h"
@@ -20,9 +18,13 @@
 #import "ColorUtil.h"
 #import "AppCache.h"
 #import "LeanCloudHelper.h"
+#import "DetailViewController.h"
+#import "ReportController.h"
+#import "JokeNavController.h"
 
 @interface MainTableViewController ()
 @property(nonatomic,strong)NSMutableArray *datasource;
+//
 @property(nonatomic,assign)NSInteger startPage;
 @property(nonatomic,strong)UISegmentedControl *segmentControl;
 @property(nonatomic,strong)NSMutableDictionary *userSettings;
@@ -30,11 +32,7 @@
 @property(nonatomic,assign)NSInteger rdStartPage;
 
 @property(nonatomic,assign)BOOL radom;
-@property(nonatomic,strong)NSNumber *todayRadomNo;
 @property(nonatomic,strong)NSDate *randomDate;
-
-@property(nonatomic,strong)NSString* timestamp;
-@property(nonatomic,strong)NSString* rdTimestamp;
 
 @property(nonatomic,strong)AFHTTPRequestOperation* currentOperation;
 @property(nonatomic,strong)UILabel *noResultLabel;
@@ -78,6 +76,8 @@
     [self loadData];
     
     [self.tableView setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
+    
+    //[LeanCloudHelper test];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -124,9 +124,7 @@
         [self doRefresh];
         return;
     }
-    JokeXmlModel *xml = [self getCachedJokeXmlModel];
-    self.datasource = [NSMutableArray arrayWithArray:xml.jokeArray];
-    self.timestamp = xml.timestamp;
+    self.datasource = [NSMutableArray arrayWithArray:[self getCachedJokes]];
     if ([self.datasource count] > 0) {
         self.radom?(self.rdStartPage = 1):(self.startPage = 1);
         [self reloadTableData];
@@ -155,37 +153,24 @@
     }
 }
 -(void)refresh{
-    if (self.radom) {//下拉刷新,更新随机数
-        self.todayRadomNo = [self genRadomNo];
-    }
-    self.currentOperation = [RESTEngine fetchJokesWithType:self.richJoke?joke_type_image:joke_type_text page:@"0" random:self.radom radomNo:self.todayRadomNo timestamp:nil onSuccessed:^(JokeXmlModel* xmlModel) {
-        NSArray *resultArray = xmlModel.jokeArray;
-        DLog(@"jokeArray count:%d",[resultArray count]);
-        self.loading = NO;
-        if (resultArray && [resultArray count] > 0) {
-            self.datasource = [NSMutableArray arrayWithArray:resultArray];
-            self.radom?(self.rdStartPage = 1):(self.startPage = 1);
-            self.endReached = NO;
-            [self cacheJokes:xmlModel];
-        }else{
-            self.endReached = YES;
-        }
-        [self reloadTableData];
-    } onError:^(NSError *engineError) {
-        self.loading = NO;
-        [UIAlertView showWithError:engineError];
-    }];
     //
     if (self.radom) {//下拉刷新,更新随机数
         self.randomDate = [self genRandomDate];
     }
-    [LeanCloudHelper fetchAVJokesByPage:0 jokeType:self.richJoke?avjoke_type_image:avjoke_type_text randomTime:self.randomDate onSuccess:^(NSArray *avJokes, NSArray *supportedJokes, NSArray *favoritedJokes) {
+    [LeanCloudHelper fetchAVJokesByPage:0 jokeType:self.richJoke?avjoke_type_image:avjoke_type_text randomTime:self.radom?self.randomDate:nil onSuccess:^(NSArray *avJokes) {
         //DLog(@"avJokes=%@,supportedJokes=%@,favoritedJokes=%@",avJokes,supportedJokes,favoritedJokes);
-        //self.datasource = [NSMutableArray arrayWithArray:avJokes];
-        //self.radom?(self.rdStartPage = 1):(self.startPage = 1);
-        //self.endReached = NO;
+        self.loading = NO;
+        if (avJokes && [avJokes count] > 0) {
+            self.datasource = [NSMutableArray arrayWithArray:avJokes];
+            self.radom?(self.rdStartPage = 1):(self.startPage = 1);
+            self.endReached = NO;
+            [self cacheJokes];
+        }else{
+            self.endReached = YES;
+        }
+        [self reloadTableData];
     } onError:^(NSError *error) {
-        //self.loading = NO;
+        self.loading = NO;
         [UIAlertView showWithError:error];
     }];
 }
@@ -202,38 +187,41 @@
 -(void)doLoadMore{
     NSInteger nowStartPage = self.radom?self.rdStartPage:self.startPage;
     if (nowStartPage>0) {
-        if (self.radom && !self.todayRadomNo) {//如果没有随机数,生成一个
-            self.todayRadomNo = [self genRadomNo];
+        if (self.radom && !self.randomDate) {//如果没有随机数,生成一个
+            self.randomDate = [self genRandomDate];
         }
-        JokeXmlModel *xml = [self getCachedJokeXmlModel];
-        self.timestamp = xml.timestamp;
-        self.currentOperation = [RESTEngine fetchJokesWithType:self.richJoke?joke_type_image:joke_type_text page:[NSString stringWithFormat:@"%i", nowStartPage] random:self.radom radomNo:self.todayRadomNo timestamp:self.timestamp onSuccessed:^(JokeXmlModel* xmlModel) {
-            NSArray *resultArray = xmlModel.jokeArray;
-            DLog(@"jokeArray count:%d",[resultArray count]);
-            if (resultArray && [resultArray count] > 0) {
-                [self.datasource addObjectsFromArray:resultArray];
+        //
+        [LeanCloudHelper fetchAVJokesByPage:nowStartPage jokeType:self.richJoke?avjoke_type_image:avjoke_type_text randomTime:self.radom?self.randomDate:nil onSuccess:^(NSArray *avJokes) {
+            if (avJokes && [avJokes count] > 0) {
+                [self.datasource addObjectsFromArray:avJokes];
                 self.radom?(self.rdStartPage++):(self.startPage ++);
                 self.endReached = NO;
-                [self cacheJokes:xmlModel];
+                [self cacheJokes];
             }else{
                 self.endReached = YES;
             }
             [self reloadTableData];
-        } onError:^(NSError *engineError) {
-            [UIAlertView showWithError:engineError];
+        } onError:^(NSError *error) {
+            [UIAlertView showWithError:error];
         }];
     }else{
         self.endReached = YES;
     }
 }
--(JokeXmlModel*)getCachedJokeXmlModel{
-    return self.richJoke?(self.radom?[AppCache getCachedRadomRichJokes]:[AppCache getCachedLastestRichJokes]):(self.radom?[AppCache getCachedRadomJokes]:[AppCache getCachedLastestJokes]);
+-(NSArray*)getCachedJokes{
+    NSArray *cachedJokes = self.richJoke?(self.radom?[AppCache getCachedRadomRichJokes]:[AppCache getCachedLastestRichJokes]):(self.radom?[AppCache getCachedRadomJokes]:[AppCache getCachedLastestJokes]);
+    NSMutableArray *jokeArray = [NSMutableArray array];
+    for (NSDictionary *dict in cachedJokes) {
+        [jokeArray addObject:[AVObject objectWithDictionary:dict]];
+    }
+    return jokeArray;
 }
--(void)cacheJokes:(JokeXmlModel*)xmlModel{
-    JokeXmlModel *xml = [[JokeXmlModel alloc] init];
-    xml.jokeArray = self.datasource;
-    xml.timestamp = xmlModel.timestamp?xmlModel.timestamp:self.timestamp;
-    self.richJoke?(self.radom?[AppCache cacheRadomRichJokes:xml]:[AppCache cacheLastestRichJokes:xml]):(self.radom?[AppCache cacheRadomJokes:xml]:[AppCache cacheLastestJokes:xml]);
+-(void)cacheJokes{
+    NSMutableArray *dictArray = [NSMutableArray array];
+    for (AVObject *obj in self.datasource) {
+        [dictArray addObject:[obj dictionaryForObject]];
+    }
+    self.richJoke?(self.radom?[AppCache cacheRadomRichJokes:dictArray]:[AppCache cacheLastestRichJokes:dictArray]):(self.radom?[AppCache cacheRadomJokes:dictArray]:[AppCache cacheLastestJokes:dictArray]);
 }
 #pragma mark title
 -(void)setUpTitle{
@@ -253,8 +241,8 @@
     self.navigationItem.titleView = titleView;
 }
 -(void)segmentControlTaped:(UISegmentedControl*)segmentedControl{
-    int index = segmentedControl.selectedSegmentIndex;
-    NSLog(@"select index:%d",index);
+    long index = segmentedControl.selectedSegmentIndex;
+    NSLog(@"select index:%ld",index);
     if (index==0) {
         self.radom = NO;
     }else if(index == 1){
@@ -279,12 +267,14 @@
 }
 #pragma mark leftButton
 -(void)setupLeftMenuButton{
-    MMDrawerBarButtonItem * leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(leftDrawerButtonPress:)];
-    [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
+    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    [leftButton setImage:[UIImage imageNamed:@"menu_icon"] forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(leftButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:leftButton] animated:YES];
 }
 #pragma mark - Button Handlers
--(void)leftDrawerButtonPress:(id)sender{
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+-(void)leftButtonTapped:(id)sender{
+    [kMainViewController showLeftViewAnimated:YES completionHandler:nil];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -314,9 +304,9 @@
     if (cell==nil) {
         cell = [[JokeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
+    cell.delegate = self;
     // Configure the cell...
-    Joke *joke = [self.datasource objectAtIndex:indexPath.row];
+    AVObject *joke = [self.datasource objectAtIndex:indexPath.row];
     [cell setJokeCell:joke parentViewController:self];
     //cell.delegate = self;
     [cell setBackgroundColor:[UIColor clearColor]];
@@ -326,8 +316,49 @@
     if(indexPath.section == self.numberOfSections)  {
         return [super tableView:tableView heightForRowAtIndexPath:indexPath];
     }
-    Joke *joke = [self.datasource objectAtIndex:indexPath.row];
-    return [JokeCell calJokeCellHeight:joke parentViewController: self];
+    AVObject *joke = [self.datasource objectAtIndex:indexPath.row];
+    return [JokeCell calJokeCellHeight:joke];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    AVObject *joke = [self.datasource objectAtIndex:indexPath.row];
+    [self pushToDetailWithJoke:joke scrollToComment:NO];
+}
+#pragma mark - 长按出菜单
+-(BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIMenuItem* mi1 = [[UIMenuItem alloc] initWithTitle:@"举报" action:NSSelectorFromString(@"reportJoke:")];
+    [[UIMenuController sharedMenuController] setMenuItems:@[mi1]];
+    return YES;
+}
+-(BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender{
+    return action == NSSelectorFromString(@"reportJoke:");
+}
+-(void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender{
+    if(action == NSSelectorFromString(@"reportJoke:")){
+        AVObject *joke = [self.datasource objectAtIndex:indexPath.row];
+        ReportController *controller = [[ReportController alloc] initWithStyle:(UITableViewStyleGrouped) subject:joke[@"name"] identity:joke.objectId];
+        [self presentViewController:[[JokeNavController alloc] initWithRootViewController:controller] animated:YES completion:nil];
+    }
+}
+
+-(void)pushToDetailWithJoke:(AVObject*)joke scrollToComment:(BOOL)scrollToComment{
+    DetailViewController *detail = [[DetailViewController alloc] initWithStyle:(UITableViewStyleGrouped) joke:joke scrollToComment:scrollToComment];
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+#pragma mark - JokeCellDelegate
+-(void)jokeCell:(JokeCell*)jokeCell joke:(AVObject*)joke supported:(BOOL)supported{
+    [self reloadRowAtJoke:joke];
+}
+-(void)jokeCell:(JokeCell*)jokeCell joke:(AVObject*)joke favorited:(BOOL)favorited{
+    [self reloadRowAtJoke:joke];
+}
+-(void)reloadRowAtJoke:(AVObject*)joke{
+    NSUInteger index = [self.datasource indexOfObject:joke];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]] withRowAnimation:(UITableViewRowAnimationFade)];
+}
+-(void)jokeCell:(JokeCell *)jokeCell commentButtonTappedOfjoke:(AVObject *)joke{
+    [self pushToDetailWithJoke:joke scrollToComment:YES];
 }
 #pragma mark - radomNo
 -(NSNumber*)genRadomNo{

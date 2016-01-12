@@ -11,6 +11,15 @@
 @class AVRequestOperation;
 @interface AVQuery : NSObject
 
+/*!
+ * Distance unit for query.
+ */
+typedef NS_ENUM(NSInteger, AVQueryDistanceUnit) {
+    AVQueryDistanceUnitMile = 1,
+    AVQueryDistanceUnitKilometer,
+    AVQueryDistanceUnitRadian
+};
+
 #pragma mark Query options
 
 /** @name Creating a Query for a Class */
@@ -193,39 +202,73 @@
  a reference point.  Distance is calculated based on angular distance on a sphere.  Results will be sorted by distance
  from reference point.
  @param key The key to be constrained.
- @param geopoint The reference point.  A AVGeoPoint.
+ @param geoPoint The reference point.  A AVGeoPoint.
  */
-- (void)whereKey:(NSString *)key nearGeoPoint:(AVGeoPoint *)geopoint;
+- (void)whereKey:(NSString *)key nearGeoPoint:(AVGeoPoint *)geoPoint;
 
 /*!
  Add a constraint to the query that requires a particular key's coordinates (specified via AVGeoPoint) be near
  a reference point and within the maximum distance specified (in miles).  Distance is calculated based on
  a spherical coordinate system.  Results will be sorted by distance (nearest to farthest) from the reference point.
  @param key The key to be constrained.
- @param geopoint The reference point.  A AVGeoPoint.
+ @param geoPoint The reference point.  A AVGeoPoint.
  @param maxDistance Maximum distance in miles.
  */
-- (void)whereKey:(NSString *)key nearGeoPoint:(AVGeoPoint *)geopoint withinMiles:(double)maxDistance;
+- (void)whereKey:(NSString *)key nearGeoPoint:(AVGeoPoint *)geoPoint withinMiles:(double)maxDistance;
 
 /*!
  Add a constraint to the query that requires a particular key's coordinates (specified via AVGeoPoint) be near
  a reference point and within the maximum distance specified (in kilometers).  Distance is calculated based on
  a spherical coordinate system.  Results will be sorted by distance (nearest to farthest) from the reference point.
  @param key The key to be constrained.
- @param geopoint The reference point.  A AVGeoPoint.
+ @param geoPoint The reference point.  A AVGeoPoint.
  @param maxDistance Maximum distance in kilometers.
  */
-- (void)whereKey:(NSString *)key nearGeoPoint:(AVGeoPoint *)geopoint withinKilometers:(double)maxDistance;
+- (void)whereKey:(NSString *)key nearGeoPoint:(AVGeoPoint *)geoPoint withinKilometers:(double)maxDistance;
 
 /*!
  Add a constraint to the query that requires a particular key's coordinates (specified via AVGeoPoint) be near
  a reference point and within the maximum distance specified (in radians).  Distance is calculated based on
  angular distance on a sphere.  Results will be sorted by distance (nearest to farthest) from the reference point.
  @param key The key to be constrained.
- @param geopoint The reference point.  A AVGeoPoint.
+ @param geoPoint The reference point.  A AVGeoPoint.
  @param maxDistance Maximum distance in radians.
  */
-- (void)whereKey:(NSString *)key nearGeoPoint:(AVGeoPoint *)geopoint withinRadians:(double)maxDistance;
+- (void)whereKey:(NSString *)key nearGeoPoint:(AVGeoPoint *)geoPoint withinRadians:(double)maxDistance;
+
+/*!
+ * Add a constraint to the query that requires a particular key's coordinates (specified via AVGeoPoint) be near
+ * a reference point and within the maximum and minimum distance. Distance is calculated based on
+ * angular distance on a sphere. Results will be sorted by distance (nearest to farthest) from the reference point.
+ *
+ * @param key              The key to be constrained.
+ * @param geoPoint         The reference point, a AVGeoPoint.
+ * @param maxDistance      Maximum distance value. If negative (like -1), the maximum constraint will be ignored.
+ * @param maxDistanceUnit  Maximum distance unit.
+ * @param minDistance      Minimum distance value. If negative (like -1), the minimum constraint will be ignored.
+ * @param minDistanceUnit  Minimum distance unit.
+ */
+- (void)whereKey:(NSString *)key
+    nearGeoPoint:(AVGeoPoint *)geoPoint
+     maxDistance:(double)maxDistance
+ maxDistanceUnit:(AVQueryDistanceUnit)maxDistanceUnit
+     minDistance:(double)minDistance
+ minDistanceUnit:(AVQueryDistanceUnit)minDistanceUnit;
+
+/*!
+ * Add a constraint to the query that requires a particular key's coordinates (specified via AVGeoPoint) be near
+ * a reference point and within the minimum distance. Distance is calculated based on
+ * angular distance on a sphere. Results will be sorted by distance (nearest to farthest) from the reference point.
+ *
+ * @param key              The key to be constrained.
+ * @param geoPoint         The reference point, a AVGeoPoint.
+ * @param minDistance      Minimum distance value. If negative (like -1), the minimum constraint will be ignored.
+ * @param minDistanceUnit  Minimum distance unit.
+ */
+- (void)whereKey:(NSString *)key
+    nearGeoPoint:(AVGeoPoint *)geoPoint
+     minDistance:(double)minDistance
+ minDistanceUnit:(AVQueryDistanceUnit)minDistanceUnit;
 
 /*!
  Add a constraint to the query that requires a particular key's coordinates (specified via AVGeoPoint) be

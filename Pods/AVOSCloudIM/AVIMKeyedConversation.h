@@ -11,6 +11,9 @@
 @class AVIMClient;
 @class AVIMConversation;
 
+/**
+ *  Represents a conversation which intends to be archived. Can get this object from AVIMConversation by -[AVIMConversation keyedConversation]. Can convert this object to AVIMConverstaion by -[AVIMClient conversationWithKeyedConversation:].
+ */
 @interface AVIMKeyedConversation : NSObject <NSCoding>
 
 @property (nonatomic, copy, readonly)   NSString     *conversationId; // 对话 id

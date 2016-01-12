@@ -29,6 +29,12 @@ enum : AVIMMessageMediaType {
 + (AVIMMessageMediaType)classMediaType;
 @end
 
+@class AVFile;
+@class AVGeoPoint;
+
+/**
+ *  Base class for rich media message.
+ */
 @interface AVIMTypedMessage : AVIMMessage
 @property(nonatomic)AVIMMessageMediaType mediaType;           //消息类型，可自定义
 @property(nonatomic, strong)NSString *text;        // 消息文本
@@ -36,8 +42,8 @@ enum : AVIMMessageMediaType {
 @property(nonatomic, strong, readonly)AVFile *file;  // 附件
 @property(nonatomic, strong, readonly)AVGeoPoint *location;  // 位置
 
-/*
- 子类调用此方法进行注册，一般可在子类的 [+(void)load] 方法里面调用
+/**
+ *  子类调用此方法进行注册，一般可在子类的 [+(void)load] 方法里面调用
  */
 + (void)registerSubclass;
 

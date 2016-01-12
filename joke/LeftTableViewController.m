@@ -14,6 +14,10 @@
 #import "ReactViewController.h"
 #import "ColorUtil.h"
 #import "JokeNavController.h"
+#import "FavoriteViewController.h"
+#import "LoginHelper.h"
+#import "LeanCloudHelper.h"
+#import "UIView+Toast.h"
 
 @interface LeftTableViewController ()
 @property(nonatomic,strong)NSArray *datasource;
@@ -37,18 +41,20 @@
 {
     [super viewDidLoad];
     
-    self.datasource = @[@"笑话",@"笑图",@"设置",@"React"];
+    self.datasource = @[@"笑话",@"笑图",@"收藏",@"设置"/*,@"React"*/];
     self.title = @"菜单";
     
     self.tableView.scrollsToTop = NO;
     //设置笑话nav controller实例
-    self.jokeNavController = (UINavigationController*)self.mm_drawerController.centerViewController;
+    
+    [self setJokeNavController:kNavigationController];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     [ColorUtil setStyle2ForTableViewController:self];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,88 +65,149 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     // Return the number of rows in the section.
-    return [self.datasource count];
+    if (section == 0) {
+        return [self.datasource count];
+    }else if (section == 1){
+        return 1;
+    }
+    return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    SmallImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell"];
-    if (!cell) {
-        cell = [[SmallImageCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"categoryCell"];
-    }
-    
-    // Configure the cell...
-    switch (indexPath.row) {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell;
+    switch (indexPath.section) {
         case 0:{
-            [cell.imageView setImage:[UIImage imageNamed:@"joke"]];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell"];
+            if (!cell) {
+                cell = [[SmallImageCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"categoryCell"];
+            }
+            
+            // Configure the cell...
+            switch (indexPath.row) {
+                case 0:{
+                    [cell.imageView setImage:[UIImage imageNamed:@"joke"]];
+                    break;
+                }
+                case 1:{
+                    [cell.imageView setImage:[UIImage imageNamed:@"richJoke"]];
+                    break;
+                }
+                case 2:{
+                    [cell.imageView setImage:[UIImage imageNamed:@"timeline_icon_unfavorite"]];
+                    break;
+                }
+                case 3:{
+                    [cell.imageView setImage:[UIImage imageNamed:@"settings"]];
+                    break;
+                }
+                default:
+                    break;
+            }
+            [cell.textLabel setText:[self.datasource objectAtIndex:indexPath.row]];
             break;
         }
         case 1:{
-            [cell.imageView setImage:[UIImage imageNamed:@"richJoke"]];
-            break;
-        }
-        case 2:{
-            [cell.imageView setImage:[UIImage imageNamed:@"settings"]];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"logout cell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"logout cell"];
+            }
+//            [cell.textLabel setTextAlignment:(NSTextAlignmentCenter)];
+            if ([AVUser currentUser]) {
+                [cell.textLabel setText:@"        退出登录"];
+            }else{
+                [cell.textLabel setText:@"        登 录"];
+            }
             break;
         }
         default:
             break;
     }
-    [cell.textLabel setText:[self.datasource objectAtIndex:indexPath.row]];
+    
     cell.backgroundColor = [UIColor clearColor];
     [cell.textLabel setTextColor:[[self.userSettings objectForKey:@"nightMode"] boolValue]?fontColor_night:fontColor_day];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch (indexPath.row) {
+    switch (indexPath.section) {
         case 0:{
-            if (!self.jokeNavController) {
-                //self.jokeNavController = [self.storyboard instantiateViewControllerWithIdentifier:@"jokeNavController"];
-                //MainTableViewController *mainController = self.jokeNavController.viewControllers[0];
-                
-                MainTableViewController * mainController = [[MainTableViewController alloc] init];
-                self.jokeNavController = [[JokeNavController alloc] initWithRootViewController:mainController];
-                mainController.richJoke = NO;
+            switch (indexPath.row) {
+                case 0:{
+                    if (!self.jokeNavController) {
+                        
+                        MainTableViewController * mainController = [[MainTableViewController alloc] init];
+                        self.jokeNavController = [[JokeNavController alloc] initWithRootViewController:mainController];
+                        mainController.richJoke = NO;
+                    }
+                    [kMainViewController setRootViewController:self.jokeNavController];
+                    [kMainViewController hideLeftViewAnimated:YES completionHandler:nil];
+                    break;
+                }
+                case 1:{
+                    if (!self.richJokeNavController) {
+                        
+                        MainTableViewController * mainController = [[MainTableViewController alloc] init];
+                        self.richJokeNavController = [[JokeNavController alloc] initWithRootViewController:mainController];
+                        mainController.richJoke = YES;
+                    }
+                    [kMainViewController setRootViewController:self.richJokeNavController];
+                    [kMainViewController hideLeftViewAnimated:YES completionHandler:nil];
+                    break;
+                }
+                case 2:{
+                    [[LoginHelper getInstance] loginWithBlock:^(AVUser *user) {
+                        [self showFavoritePage];
+                    }];
+                    
+                    break;
+                }
+                case 3:{
+                    UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:[[SettingsTableViewController alloc] initWithStyle:(UITableViewStyleGrouped)]];
+                    [kMainViewController setRootViewController:settingsNavController];
+                    [kMainViewController hideLeftViewAnimated:YES completionHandler:nil];
+                    break;
+                }
+                case 4:{
+                    ReactViewController *reactController = [[ReactViewController alloc] init];
+                    [kMainViewController setRootViewController:reactController];
+                    [kMainViewController hideLeftViewAnimated:YES completionHandler:nil];
+                    break;
+                }
+                default:
+                    break;
             }
-            [self.mm_drawerController setCenterViewController:self.jokeNavController withCloseAnimation:YES completion:nil];
             break;
         }
         case 1:{
-            if (!self.richJokeNavController) {
-                //self.richJokeNavController = [self.storyboard instantiateViewControllerWithIdentifier:@"jokeNavController"];
-                //MainTableViewController *mainController = self.richJokeNavController.viewControllers[0];
-                
-                MainTableViewController * mainController = [[MainTableViewController alloc] init];
-                self.richJokeNavController = [[JokeNavController alloc] initWithRootViewController:mainController];
-                mainController.richJoke = YES;
+            if ([AVUser currentUser]) {
+                [AVUser logOut];
+                [self.tableView reloadData];
+                [MyAppDelegate.window makeToast:@"退出登录成功" duration:3.0 position:CSToastPositionTop];
+            }else{
+                [[LoginHelper getInstance] loginWithBlock:^(AVUser *user) {
+                    [self.tableView reloadData];
+                    [MyAppDelegate.window makeToast:@"登录成功" duration:3.0 position:CSToastPositionTop];
+                }];
             }
-            [self.mm_drawerController setCenterViewController:self.richJokeNavController withCloseAnimation:YES completion:nil];
-            break;
-        }
-        case 2:{
-            //UINavigationController *settingsNavController = [self.storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
-            UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:[[SettingsTableViewController alloc] init]];
-            [self.mm_drawerController setCenterViewController:settingsNavController withCloseAnimation:YES completion:nil];
-            break;
-        }
-        case 3:{
-            ReactViewController *reactController = [[ReactViewController alloc] init];
-            [self.mm_drawerController setCenterViewController:reactController withCloseAnimation:YES completion:nil];
             break;
         }
         default:
             break;
     }
+    
+}
+
+-(void)showFavoritePage{
+    UINavigationController *favoriteNavController = [[UINavigationController alloc] initWithRootViewController:[[FavoriteViewController alloc] init]];
+    [kMainViewController setRootViewController:favoriteNavController];
+    [kMainViewController hideLeftViewAnimated:YES completionHandler:nil];
 }
 
 /*
