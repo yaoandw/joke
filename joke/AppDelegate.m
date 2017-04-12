@@ -13,7 +13,7 @@
 #import "MainTableViewController.h"
 #import "JokeNavController.h"
 #import "MainViewController.h"
-#import <Bugly/CrashReporter.h>
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate ()
 
@@ -54,10 +54,10 @@
     //使用腾讯的bugly进行错误统计
     // 初始化之前，开启调式Log
 #if DEBUG == 1
-    [[CrashReporter sharedInstance] enableLog:YES];
+    [BuglyLog initLogger:(BuglyLogLevelDebug) consolePrint:YES];
 #endif
     // 初始化SDK, 请使用在Bugly平台上注册应用的 AppId, 注意不要填写AppKey
-    [[CrashReporter sharedInstance] installWithAppId:@"900016009"];
+    [Bugly startWithAppId:@"900016009"];
     //    [[CrashReporter sharedInstance] setExpMergeUpload:YES];
 //    exp_call_back_func = &my_exp_callback;
     

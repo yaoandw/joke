@@ -1,1 +1,0 @@
-../../../../../../../react/react-native/Libraries/Image/RCTImageViewManager.h

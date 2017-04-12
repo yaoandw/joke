@@ -7,7 +7,7 @@
 //
 
 #import "ReactView.h"
-#import "RCTRootView.h"
+//#import "RCTRootView.h"
 
 @implementation ReactView
 
@@ -29,9 +29,9 @@
         // To generate that file, run the curl command and add the output to your main Xcode build target:
         //
         //   curl http://localhost:8081/index.ios.bundle -o main.jsbundle
-        RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@"SimpleApp" initialProperties:nil launchOptions:nil];
-        [self addSubview:rootView];
-        rootView.frame = self.bounds;
+//        RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@"SimpleApp" initialProperties:nil launchOptions:nil];
+//        [self addSubview:rootView];
+//        rootView.frame = self.bounds;
     }
     return self;
 }

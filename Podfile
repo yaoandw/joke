@@ -1,4 +1,4 @@
-platform :ios, '7.0'
+#platform :ios, '7.0'
 #use_frameworks!
 #pod 'AVOSCloudDynamic'
 # 如果使用实时通信功能，可以添加：
@@ -9,14 +9,16 @@ platform :ios, '7.0'
 #pod 'React/RCTText'
 # Depending on how your project is organized, your node_modules directory may be
 # somewhere else; tell CocoaPods where you've installed react-native from npm
-pod 'React', :path => '/Users/yaoandw/Documents/ios/react/react-native', :subspecs => [
-  'Core',
-  'RCTImage',
-  'RCTNetwork',
-  'RCTText',
-  'RCTWebSocket',
+
+def shared_pods
+#pod 'React', :path => '/Users/yaoandw/Documents/ios/react/react-native', :subspecs => [
+#  'Core',
+#  'RCTImage',
+#  'RCTNetwork',
+#  'RCTText',
+#  'RCTWebSocket',
   # Add any other subspecs you want to use in your project
-]
+#]
 pod "AFNetworking", "~> 2.0"
 pod 'EGYWebViewController'
 pod 'SVProgressHUD'
@@ -30,3 +32,8 @@ pod "MWPhotoBrowser"
 pod 'MJRefresh'
 pod 'LGSideMenuController', '~> 1.0.0'
 pod 'Bugly'
+end
+
+target "joke" do
+    shared_pods
+end
